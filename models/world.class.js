@@ -10,31 +10,32 @@ class World {
         new Cloud(),
     ]
     bgObjects = [
-        new backgroundObject(),
+        new backgroundObject('img/5_background/layers/air.png'),
+        new backgroundObject('img/5_background/layers/3_third_layer/1.png'),
+        new backgroundObject('img/5_background/layers/2_second_layer/1.png'),
+        new backgroundObject('img/5_background/layers/1_first_layer/1.png'),
+
+
     ]
 
     draw() {
-        // Draw first Background Layer
-        this.bgObjects.forEach(e => {
-            ctx.drawImage(e.img, e.x, e.y, e.width, e.height);
-        });
-
-        ctx.drawImage(this.char.img, this.char.x, this.char.y, this.char.width, this.char.height);
-
-        // Draw all Clouds
-        this.clouds.forEach(e => {
-            ctx.drawImage(e.img, e.x, e.y, e.width, e.height);
-        })
-
-        // Draw all Enemies
-        this.enemies.forEach(e => {
-            ctx.drawImage(e.img, e.x, e.y, e.width, e.height);
-        });
-
-
+        this.addObjectsToWorld(this.bgObjects);
+        this.addObjectsToWorld(this.clouds);
+        this.addObjectToWorld(this.char);
+        this.addObjectsToWorld(this.enemies);
     }
 
     update() {
         this.draw();
+    }
+
+    addObjectsToWorld(objects) {
+        objects.forEach(obj => {
+            ctx.drawImage(obj.img, obj.x, obj.y, obj.width, obj.height);
+        });
+    }
+
+    addObjectToWorld(object) {
+        ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
     }
 }
