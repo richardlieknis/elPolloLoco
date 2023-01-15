@@ -1,5 +1,9 @@
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-canvas.style.width = "720px";
-canvas.style.height = "480px";
+canvas.width = 720;
+canvas.height = 480;
+
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
