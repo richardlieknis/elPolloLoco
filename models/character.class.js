@@ -32,13 +32,17 @@ class Character extends MovableObject {
     animation() {
         setInterval(() => {
             if (!this.idle) {
+
                 let path = this.IMAGES_WALK[this.currentImage];
                 this.img = this.imageCache[path];
                 this.currentImage++;
                 if (this.currentImage == this.IMAGES_WALK.length) {
                     this.currentImage = 0;
                 }
+
             }
+
+
         }, 1000 / 10)
     }
 
@@ -48,6 +52,7 @@ class Character extends MovableObject {
 
     addControls(keyboard) {
         if (keyboard.RIGHT) {
+            this.moveCamera();
             this.idle = false;
             this.flipImage = false;
             this.moveRight(this.speed);
@@ -57,11 +62,16 @@ class Character extends MovableObject {
         }
 
         if (keyboard.LEFT) {
+            this.moveCamera();
             this.idle = false;
             this.flipImage = true;
             this.moveLeft(this.speed);
         }
+    }
 
-
+    moveCamera() {
+        if (this.x > 200) {
+            world.camera_x = -this.x + 200;
+        }
     }
 }

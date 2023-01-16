@@ -17,15 +17,22 @@ class World {
         new backgroundObject('img/5_background/layers/1_first_layer/1.png'),
     ];
 
+
+
     constructor(keyboard) {
         this.keyboard = keyboard;
+        this.camera_x = 0;
+        this.world = this;
+
     }
 
     draw() {
+        ctx.translate(this.camera_x, 0);
         this.addObjectsToWorld(this.bgObjects);
         this.addObjectsToWorld(this.clouds);
         this.addObjectToWorld(this.char);
         this.addObjectsToWorld(this.enemies);
+        ctx.translate(-this.camera_x, 0);
     }
 
     update() {
