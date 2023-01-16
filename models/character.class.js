@@ -79,7 +79,7 @@ class Character extends MovableObject {
                     return true;
                 } else return false;
             case "right":
-                if (this.x < world.end) {
+                if (this.x < world.end + 950) {
                     return true;
                 } else return false;
             default:
@@ -88,7 +88,7 @@ class Character extends MovableObject {
     }
 
     moveCamera() {
-        if (this.x > 200) {
+        if (this.x > 200 && this.x < world.end) {
             world.camera_x = -this.x + 200;
         }
     }
