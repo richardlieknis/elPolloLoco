@@ -13,7 +13,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALK);
         this.width = 610 / scale / 2;
         this.height = 1200 / scale / 2;
-        this.x = 0;
+        this.x = 1;
         this.y = canvas.height - this.height / 0.85;
         this.speed = speed;
         this.keyboard = keyboard;
@@ -25,7 +25,6 @@ class Character extends MovableObject {
 
     update(keyboard) {
         this.addControls(keyboard);
-
 
     }
 
@@ -55,7 +54,9 @@ class Character extends MovableObject {
             this.moveCamera();
             this.idle = false;
             this.flipImage = false;
-            this.moveRight(this.speed);
+            if (this.isInLevel("right")) {
+                this.moveRight(this.speed);
+            }
         }
         if (!keyboard.RIGHT) {
             this.idle = true;
@@ -65,7 +66,24 @@ class Character extends MovableObject {
             this.moveCamera();
             this.idle = false;
             this.flipImage = true;
-            this.moveLeft(this.speed);
+            if (this.isInLevel("left")) {
+                this.moveLeft(this.speed);
+            }
+        }
+    }
+
+    isInLevel(side) {
+        switch (side) {
+            case "left":
+                if (this.x > -50) {
+                    return true;
+                } else return false;
+            case "right":
+                if (this.x < world.end) {
+                    return true;
+                } else return false;
+            default:
+                break;
         }
     }
 

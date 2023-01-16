@@ -11,10 +11,14 @@ class World {
         new Cloud(0.6),
     ]
     bgObjects = [
-        new backgroundObject('img/5_background/layers/air.png'),
-        new backgroundObject('img/5_background/layers/3_third_layer/1.png'),
-        new backgroundObject('img/5_background/layers/2_second_layer/1.png'),
-        new backgroundObject('img/5_background/layers/1_first_layer/1.png'),
+        new backgroundObject('img/5_background/layers/air.png', 0),
+        new backgroundObject('img/5_background/layers/3_third_layer/1.png', 0),
+        new backgroundObject('img/5_background/layers/2_second_layer/1.png', 0),
+        new backgroundObject('img/5_background/layers/1_first_layer/1.png', 0),
+        new backgroundObject('img/5_background/layers/air.png', canvas.width - 1),
+        new backgroundObject('img/5_background/layers/3_third_layer/2.png', canvas.width - 1),
+        new backgroundObject('img/5_background/layers/2_second_layer/2.png', canvas.width - 1),
+        new backgroundObject('img/5_background/layers/1_first_layer/2.png', canvas.width - 1),
     ];
 
 
@@ -22,6 +26,7 @@ class World {
     constructor(keyboard) {
         this.keyboard = keyboard;
         this.camera_x = 0;
+        this.end = 1400;
         this.world = this;
 
     }
