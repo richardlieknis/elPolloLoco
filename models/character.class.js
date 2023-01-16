@@ -8,7 +8,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-26.png',
     ];
 
-    constructor(speed) {
+    constructor(speed, keyboard) {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALK);
         this.x = 0;
@@ -16,6 +16,8 @@ class Character extends MovableObject {
         this.width = 610 / scale / 2;
         this.height = 1200 / scale / 2;
         this.speed = speed;
+        this.keyboard = keyboard;
+        this.idle = true;
 
         this.animation();
 
@@ -29,11 +31,13 @@ class Character extends MovableObject {
 
     animation() {
         setInterval(() => {
-            let path = this.IMAGES_WALK[this.currentImage];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-            if (this.currentImage == this.IMAGES_WALK.length) {
-                this.currentImage = 0;
+            if (!this.idle) {
+                let path = this.IMAGES_WALK[this.currentImage];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+                if (this.currentImage == this.IMAGES_WALK.length) {
+                    this.currentImage = 0;
+                }
             }
         }, 1000 / 10)
     }
@@ -44,9 +48,17 @@ class Character extends MovableObject {
 
     addControls(keyboard) {
         if (keyboard.RIGHT) {
+            this.idle = false;
+            this.flipImage = false;
             this.moveRight(this.speed);
         }
+        if (!keyboard.RIGHT) {
+            this.idle = true;
+        }
+
         if (keyboard.LEFT) {
+            this.idle = false;
+            this.flipImage = true;
             this.moveLeft(this.speed);
         }
 

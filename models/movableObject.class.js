@@ -7,6 +7,7 @@ class MovableObject {
     speed;
     imageCache = {};
     currentImage = 0;
+    flipImage = false;
 
     loadImage(path) {
         this.img = new Image();
@@ -26,7 +27,6 @@ class MovableObject {
     }
 
     moveRight() {
-        if (this.x > 600) return;
         this.x += this.speed;
     }
 }

@@ -1,5 +1,5 @@
 class World {
-    char = new Character(4);
+    char = new Character(3);
     enemies = [
         new Chicken(0.2),
         new Chicken(0.5),
@@ -46,6 +46,16 @@ class World {
     }
 
     addObjectToWorld(object) {
+        if (object.flipImage) {
+            ctx.save();
+            ctx.translate(object.width, 0);
+            ctx.scale(-1, 1);
+            object.x = object.x * -1;
+        }
         ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+        if (object.flipImage) {
+            object.x = object.x * -1;
+            ctx.restore();
+        }
     }
 }
