@@ -1,8 +1,8 @@
 class MovableObject {
     x;
     y;
-    width = 610 / scale;
-    height = 1200 / scale;
+    width;
+    height = 1200;
     img;
     speed;
     imageCache = {};
