@@ -17,12 +17,13 @@ class Character extends MovableObject {
         this.height = 1200 / scale / 2;
         this.speed = speed;
 
-
         this.animation();
+
     }
 
     update(keyboard) {
         this.addControls(keyboard);
+
 
     }
 
@@ -35,8 +36,6 @@ class Character extends MovableObject {
                 this.currentImage = 0;
             }
         }, 1000 / 10)
-
-
     }
 
     jump() {
