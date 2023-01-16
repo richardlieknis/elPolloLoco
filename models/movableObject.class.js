@@ -4,6 +4,7 @@ class MovableObject {
     width = 610 / scale;
     height = 1200 / scale;
     img;
+    speed;
     imageCache = {};
     currentImage = 0;
 
@@ -21,10 +22,11 @@ class MovableObject {
     }
 
     moveLeft() {
-        console.log("<-");
+        this.x -= this.speed;
     }
 
     moveRight() {
-        console.log("->");
+        if (this.x > 600) return;
+        this.x += this.speed;
     }
 }

@@ -1,9 +1,9 @@
 class World {
-    char = new Character();
+    char = new Character(4);
     enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
+        new Chicken(0.2),
+        new Chicken(0.5),
+        new Chicken(1),
     ];
     clouds = [
         new Cloud(0.2),
@@ -15,9 +15,11 @@ class World {
         new backgroundObject('img/5_background/layers/3_third_layer/1.png'),
         new backgroundObject('img/5_background/layers/2_second_layer/1.png'),
         new backgroundObject('img/5_background/layers/1_first_layer/1.png'),
+    ];
 
-
-    ]
+    constructor(keyboard) {
+        this.keyboard = keyboard;
+    }
 
     draw() {
         this.addObjectsToWorld(this.bgObjects);
@@ -28,9 +30,13 @@ class World {
 
     update() {
         this.draw();
+        this.char.update(this.keyboard);
         this.clouds.forEach(obj => {
             obj.update();
         });
+        this.enemies.forEach(obj => {
+            obj.update();
+        })
     }
 
     addObjectsToWorld(objects) {

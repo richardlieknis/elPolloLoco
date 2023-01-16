@@ -8,19 +8,25 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-26.png',
     ];
 
-    constructor() {
+    constructor(speed) {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALK);
         this.x = 0;
-        this.y = canvas.height - this.height / 2;
+        this.y = canvas.height - this.height / 1.7;
         this.width = 610 / scale / 2;
         this.height = 1200 / scale / 2;
+        this.speed = speed;
 
 
-        this.update();
+        this.animation();
     }
 
-    update() {
+    update(keyboard) {
+        this.addControls(keyboard);
+
+    }
+
+    animation() {
         setInterval(() => {
             let path = this.IMAGES_WALK[this.currentImage];
             this.img = this.imageCache[path];
@@ -34,6 +40,17 @@ class Character extends MovableObject {
     }
 
     jump() {
+
+    }
+
+    addControls(keyboard) {
+        if (keyboard.RIGHT) {
+            this.moveRight(this.speed);
+        }
+        if (keyboard.LEFT) {
+            this.moveLeft(this.speed);
+        }
+
 
     }
 }
