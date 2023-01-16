@@ -6,8 +6,9 @@ class World {
         new Chicken(),
     ];
     clouds = [
-        new Cloud(),
-        new Cloud(),
+        new Cloud(0.2),
+        new Cloud(0.4),
+        new Cloud(0.6),
     ]
     bgObjects = [
         new backgroundObject('img/5_background/layers/air.png'),
@@ -27,6 +28,9 @@ class World {
 
     update() {
         this.draw();
+        this.clouds.forEach(obj => {
+            obj.update();
+        });
     }
 
     addObjectsToWorld(objects) {

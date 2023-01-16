@@ -21,4 +21,5 @@ main {
 
 canvas {
     background-color: aliceblue;
+    border-radius: 3%;
 }
