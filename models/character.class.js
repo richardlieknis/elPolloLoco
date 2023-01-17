@@ -20,6 +20,7 @@ class Character extends MovableObject {
         this.idle = true;
 
         this.walkSound = new Audio('audio/walking.mp3');
+        this.walkSound.volume = 0.8;
 
         this.animation();
 
