@@ -29,6 +29,11 @@ class World {
         this.end = 1400;
         this.world = this;
 
+        this.ambientSound = new Audio("audio/desert.wav");
+        this.ambientSound.play();
+        this.ambientSound.volume = 0.2;
+        this.ambientSound.loop = true;
+
     }
 
     draw() {

@@ -19,6 +19,8 @@ class Character extends MovableObject {
         this.keyboard = keyboard;
         this.idle = true;
 
+        this.walkSound = new Audio('audio/walking.mp3');
+
         this.animation();
 
     }
@@ -29,8 +31,12 @@ class Character extends MovableObject {
     }
 
     animation() {
+
         setInterval(() => {
+
+            this.walkSound.pause();
             if (!this.idle) {
+                this.walkSound.play();
 
                 let path = this.IMAGES_WALK[this.currentImage];
                 this.img = this.imageCache[path];
