@@ -10,6 +10,7 @@ class MovableObject {
     imageCache = {};
     currentImage = 0;
     currentImageJ = 0;
+    currentImageH = 0;
     flipImage = false;
     jumping = false;
     offsetY = 0;
@@ -42,7 +43,8 @@ class MovableObject {
     }
 
     checkCollision(obj) {
-        return (this.x + 30 + this.width - 70) >= obj.x + 30 && this.x + 30 <= (obj.x + 30 + obj.width - 70) &&
+        return (this.x + 30 + this.width - 70) >= (obj.x + 30) &&
+            (this.x + 30) <= (obj.x + 30 + obj.width - 70) &&
             (this.y + this.height) >= obj.y &&
             (this.y) <= (obj.y + obj.height)
     }
