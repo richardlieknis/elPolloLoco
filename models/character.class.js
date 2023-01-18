@@ -13,7 +13,10 @@ class Character extends MovableObject {
         //'img/2_character_pepe/3_jump/J-32.png',
         //'img/2_character_pepe/3_jump/J-33.png',
         'img/2_character_pepe/3_jump/J-34.png',
+        'img/2_character_pepe/3_jump/J-34.png',
         'img/2_character_pepe/3_jump/J-35.png',
+        'img/2_character_pepe/3_jump/J-35.png',
+        'img/2_character_pepe/3_jump/J-36.png',
         'img/2_character_pepe/3_jump/J-36.png',
         //'img/2_character_pepe/3_jump/J-37.png',
         //'img/2_character_pepe/3_jump/J-38.png',
@@ -46,6 +49,7 @@ class Character extends MovableObject {
         console.log(this.isOnGround() + "...SpeedY: " + this.speedY);
         if (this.isOnGround()) {
             this.jumping = false;
+            this.currentImageJ = 0;
             if (this.idle) {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
             }
@@ -84,7 +88,7 @@ class Character extends MovableObject {
                     this.currentImageJ = 0;
                 }
             }
-        }, 1000 / 3);
+        }, 1000 / 4);
 
     }
 
