@@ -58,18 +58,20 @@ class World {
 
     addObjectsToWorld(objects) {
         objects.forEach(obj => {
-            ctx.drawImage(obj.img, obj.x, obj.y, obj.width, obj.height);
+            this.addObjectToWorld(obj);
         });
     }
 
     addObjectToWorld(object) {
+        object.addCollisionRect();
+
         if (object.flipImage) {
             ctx.save();
             ctx.translate(object.width, 0);
             ctx.scale(-1, 1);
             object.x = object.x * -1;
         }
-        ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+        object.draw();
         if (object.flipImage) {
             object.x = object.x * -1;
             ctx.restore();

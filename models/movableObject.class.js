@@ -26,6 +26,27 @@ class MovableObject {
         });
     }
 
+    draw() {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    addCollisionRect() {
+        if (this instanceof Character || this instanceof Chicken) {
+            ctx.beginPath();
+            ctx.lineWidth = "2";
+            ctx.strokeStyle = "blue";
+            ctx.rect(this.x + 30, this.y, this.width - 70, this.height);
+            ctx.stroke();
+        }
+    }
+
+    checkCollision(obj) {
+        return this.x + this.width > obj.x &&
+            this.y + this.height > obj.y &&
+            this.x < obj.x &&
+            this.y < obj.y + obj.height
+    }
+
 
     addPhysics() {
         setInterval(() => {

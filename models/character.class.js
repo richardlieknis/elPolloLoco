@@ -38,7 +38,7 @@ class Character extends MovableObject {
 
         this.walkSound = new Audio('audio/walking.mp3');
         this.walkSound.volume = 0.8;
-        this.jumpSound = new Audio('audio/jump1.mp3');
+        this.jumpSound = new Audio('audio/jump2.mp3');
         this.jumpSound.volume = 0.5;
         this.jumpSound.loop = false;
         this.hasPlayed = false;
@@ -50,7 +50,6 @@ class Character extends MovableObject {
 
     update(keyboard) {
         this.addControls(keyboard);
-        console.log(this.isOnGround() + "...SpeedY: " + this.speedY);
         if (this.isOnGround()) {
             this.jumping = false;
             this.hasPlayed = false;
@@ -110,6 +109,8 @@ class Character extends MovableObject {
             this.jumping = true;
         }
     }
+
+
 
     addControls(keyboard) {
         if (keyboard.RIGHT) {
