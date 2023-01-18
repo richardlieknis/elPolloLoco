@@ -33,6 +33,7 @@ class World {
         this.ambientSound.play();
         this.ambientSound.volume = 0.2;
         this.ambientSound.loop = true;
+        this.ambientSound.autoplay = true;
 
     }
 

@@ -23,16 +23,28 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-43.png',
     ]
 
+    IMAGES_DEAD = [
+        'img/2_character_pepe/5_dead/D-51.png',
+        'img/2_character_pepe/5_dead/D-52.png',
+        'img/2_character_pepe/5_dead/D-53.png',
+        'img/2_character_pepe/5_dead/D-54.png',
+        'img/2_character_pepe/5_dead/D-55.png',
+        'img/2_character_pepe/5_dead/D-56.png',
+        'img/2_character_pepe/5_dead/D-57.png',
+    ]
+
     constructor(speed) {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.width = 610 / scale / 2;
         this.height = 1200 / scale / 2;
         this.x = 1;
-        this.y = canvas.height - this.height / 0.85 - 300;
+        this.y = canvas.height - this.height / 0.85;
         this.speed = speed;
+        this.energy = 100;
 
         this.idle = true;
 
@@ -50,13 +62,15 @@ class Character extends MovableObject {
     }
 
     update(keyboard) {
-        //console.log(this.isHurt());
-        this.addControls(keyboard);
+
+        if (!this.pepeDead()) {
+            this.addControls(keyboard);
+        }
         if (this.isOnGround()) {
             this.jumping = false;
             this.hasPlayed = false;
             this.currentImageJ = 0;
-            if (this.idle && !this.isHurt()) {
+            if (this.idle && !this.isHurt() && !this.pepeDead()) {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
             }
         }
@@ -67,7 +81,7 @@ class Character extends MovableObject {
         // WALKING Animation
         setInterval(() => {
             this.walkSound.pause();
-            if (!this.idle && !this.jumping && !this.isHurt()) {
+            if (!this.idle && !this.jumping && !this.isHurt() && !this.pepeDead()) {
                 this.walkSound.play();
 
                 let path = this.IMAGES_WALK[this.currentImage];
@@ -81,7 +95,7 @@ class Character extends MovableObject {
 
         // JUMPING Animation
         setInterval(() => {
-            if (this.jumping && !this.isHurt()) {
+            if (this.jumping && !this.isHurt() && !this.pepeDead()) {
                 if (this.isOnGround()) {
                     this.currentImageJ = 0;
                 }
@@ -96,9 +110,9 @@ class Character extends MovableObject {
         }, 1000 / 4);
 
         // HURT Animation
-
         setInterval(() => {
-            if (this.isHurt()) {
+            if (this.isHurt() && !this.pepeDead()) {
+
                 this.hurtSound.play();
                 let path = this.IMAGES_HURT[this.currentImageH];
                 this.img = this.imageCache[path];
@@ -109,6 +123,22 @@ class Character extends MovableObject {
             }
         }, 1000 / 10);
 
+        // DEAD Animation
+
+        let test = setInterval(() => {
+            if (this.pepeDead()) {
+                this.jump();
+
+                //this.hurtSound.play();
+                let path = this.IMAGES_DEAD[this.currentImageD];
+                this.img = this.imageCache[path];
+                this.currentImageD++;
+                if (this.currentImageD == this.IMAGES_DEAD.length) {
+                    this.currentImageD = 0;
+                    clearInterval(test);
+                }
+            }
+        }, 1000 / 6.3);
     }
 
     triggerJumpSound() {
@@ -127,10 +157,15 @@ class Character extends MovableObject {
 
     isHurt() {
         let results = world.enemies.map(obj => this.checkCollision(obj));
+        if (results.includes(true)) {
+            this.energy--;
+        }
         return results.includes(true);
     }
 
-
+    pepeDead() {
+        return this.energy <= 0;
+    }
 
     addControls(keyboard) {
         if (keyboard.RIGHT) {
