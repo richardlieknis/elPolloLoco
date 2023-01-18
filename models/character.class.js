@@ -44,7 +44,7 @@ class Character extends MovableObject {
         this.x = 1;
         this.y = canvas.height - this.height / 0.85;
         this.speed = speed;
-        this.energy = 100;
+
 
         this.idle = true;
 
@@ -54,6 +54,10 @@ class Character extends MovableObject {
         this.jumpSound.volume = 0.5;
         this.hurtSound = new Audio('audio/hurt1.mp3');
         this.hurtSound.volume = 0.5;
+        this.deadSound = new Audio('audio/hurt4.mp3');
+        this.deadSound.volume = 0.5;
+
+
         this.hasPlayed = false;
 
         this.animation();
@@ -129,13 +133,14 @@ class Character extends MovableObject {
             if (this.pepeDead()) {
                 this.jump();
 
-                //this.hurtSound.play();
                 let path = this.IMAGES_DEAD[this.currentImageD];
                 this.img = this.imageCache[path];
                 this.currentImageD++;
                 if (this.currentImageD == this.IMAGES_DEAD.length) {
                     this.currentImageD = 0;
                     clearInterval(test);
+                    this.deadSound.play();
+                    //TODO - DeadSound muss anfang des Intervals sein und ein einziges mal abspielen!
                 }
             }
         }, 1000 / 6.3);
@@ -158,7 +163,7 @@ class Character extends MovableObject {
     isHurt() {
         let results = world.enemies.map(obj => this.checkCollision(obj));
         if (results.includes(true)) {
-            this.energy--;
+            this.hit();
         }
         return results.includes(true);
     }
@@ -177,7 +182,7 @@ class Character extends MovableObject {
             }
         }
         if (!keyboard.RIGHT) {
-            this.idle = true;
+            this.idle = true; //TODO - Sollte auch true gesetzt werden, wenn nichts passiert
         }
 
         if (keyboard.LEFT) {

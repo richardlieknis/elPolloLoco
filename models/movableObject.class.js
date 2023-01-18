@@ -15,6 +15,7 @@ class MovableObject {
     flipImage = false;
     jumping = false;
     offsetY = 0;
+    energy = 100;
 
     loadImage(path) {
         this.img = new Image();
@@ -31,6 +32,13 @@ class MovableObject {
 
     draw() {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    hit() {
+        this.energy--;
+        if (this.energy < 0) {
+            this.energy = 0;
+        }
     }
 
     addCollisionRect() {
