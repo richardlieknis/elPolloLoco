@@ -19,6 +19,8 @@ class Chicken extends MovableObject {
     }
 
     update() {
+        this.checkCollision(world.char);
+        console.log('this.checkCollision(world.char): ', this.checkCollision(world.char));
         this.moveLeft(this.speed);
     }
 
