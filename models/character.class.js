@@ -38,6 +38,10 @@ class Character extends MovableObject {
 
         this.walkSound = new Audio('audio/walking.mp3');
         this.walkSound.volume = 0.8;
+        this.jumpSound = new Audio('audio/jump1.mp3');
+        this.jumpSound.volume = 0.5;
+        this.jumpSound.loop = false;
+        this.hasPlayed = false;
 
         this.animation();
         this.addPhysics();
@@ -49,6 +53,7 @@ class Character extends MovableObject {
         console.log(this.isOnGround() + "...SpeedY: " + this.speedY);
         if (this.isOnGround()) {
             this.jumping = false;
+            this.hasPlayed = false;
             this.currentImageJ = 0;
             if (this.idle) {
                 this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
@@ -75,7 +80,6 @@ class Character extends MovableObject {
 
         // JUMPING Animation
         setInterval(() => {
-            //this.walkSound.pause();
             if (this.jumping) {
                 if (this.isOnGround()) {
                     this.currentImageJ = 0;
@@ -92,8 +96,16 @@ class Character extends MovableObject {
 
     }
 
+    triggerJumpSound() {
+        this.hasPlayed = true;
+        this.jumpSound.play();
+    }
+
     jump() {
         if (!this.isAboveGround()) {
+            if (this.hasPlayed === false) {
+                this.triggerJumpSound();
+            }
             this.speedY = 30;
             this.jumping = true;
         }

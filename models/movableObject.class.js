@@ -41,7 +41,7 @@ class MovableObject {
     }
 
     isOnGround() {
-        return (this.speedY <= -32.5)
+        return (this.speedY <= -30)
     }
 
     moveLeft() {
