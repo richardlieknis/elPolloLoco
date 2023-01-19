@@ -153,6 +153,9 @@ class Character extends MovableObject {
     jump() {
         if (!this.isAboveGround()) {
             if (this.hasPlayed === false) {
+                if (!this.pepeDead()) {
+                    this.jumpSound.play()
+                }
                 this.triggerJumpSound();
             }
             this.speedY = 30;

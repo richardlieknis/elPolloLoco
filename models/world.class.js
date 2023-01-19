@@ -21,6 +21,12 @@ class World {
         new backgroundObject('img/5_background/layers/1_first_layer/2.png', canvas.width - 1),
     ];
 
+    statusObject = [
+        new Energy(30),
+        new Wrap(180),
+        new Bottle(330),
+    ]
+
 
 
     constructor(keyboard) {
@@ -43,11 +49,17 @@ class World {
         this.addObjectsToWorld(this.clouds);
         this.addObjectToWorld(this.char);
         this.addObjectsToWorld(this.enemies);
+
         ctx.translate(-this.camera_x, 0);
+    }
+
+    drawStatus() {
+        this.addObjectsToWorld(this.statusObject);
     }
 
     update() {
         this.draw();
+        this.drawStatus();
         this.char.update(this.keyboard);
         this.clouds.forEach(obj => {
             obj.update();
@@ -64,7 +76,7 @@ class World {
     }
 
     addObjectToWorld(object) {
-        object.addCollisionRect();
+        //object.addCollisionRect();
 
         if (object.flipImage) {
             ctx.save();
