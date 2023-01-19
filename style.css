@@ -8,6 +8,8 @@ body {
     background-color: #111;
     color: aliceblue;
     font-family: sans-serif;
+    background-image: url('img/background.png');
+    background-position: center;
 }
 
 main {
@@ -16,7 +18,7 @@ main {
     align-items: center;
     flex-direction: column;
     height: 100vh;
-    gap: 30px;
+    gap: 0px;
 }
 
 canvas {
@@ -24,7 +26,18 @@ canvas {
     border-radius: 3%;
 }
 
+h1 {
+    font-family: 'boots';
+    font-size: 48px;
+    color: #F8C266;
+}
+
 @font-face {
     font-family: 'boogaloo';
     src: url(fonts/Boogaloo.ttf);
+}
+
+@font-face {
+    font-family: 'boots';
+    src: url(fonts/boots.otf);
 }

@@ -43,6 +43,6 @@ window.addEventListener("click", (e) => {
     setTimeout(() => {
         keyboard.THROW = false;
         console.log(keyboard.THROW);
-    }, 100);
+    }, 15);
 
 })
