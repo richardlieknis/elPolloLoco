@@ -13,9 +13,13 @@ class StatusObject {
 
     draw() {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        ctx.font = "48px boogaloo";
+        ctx.fillStyle = "#fff";
+        ctx.fillText(this.amount, this.x + 80, 90);
+        ctx.strokeText(this.amount, this.x + 80, 90);
     }
 
     update() {
-        //TODO - Status aktualisieren
+        //this.amount = world.char.energy;
     }
 }

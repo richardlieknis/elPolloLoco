@@ -23,3 +23,8 @@ canvas {
     background-color: aliceblue;
     border-radius: 3%;
 }
+
+@font-face {
+    font-family: 'boogaloo';
+    src: url(fonts/Boogaloo.ttf);
+}

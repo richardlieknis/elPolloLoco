@@ -12,6 +12,7 @@ class MovableObject {
     currentImageJ = 0;
     currentImageH = 0;
     currentImageD = 0;
+    currentImageB = 0;
     flipImage = false;
     jumping = false;
     offsetY = 0;
@@ -35,7 +36,7 @@ class MovableObject {
     }
 
     hit() {
-        this.energy--;
+        this.energy -= 2;
         if (this.energy < 0) {
             this.energy = 0;
         }
@@ -69,7 +70,11 @@ class MovableObject {
     }
 
     isAboveGround() {
-        return this.y < 230;
+        if (this instanceof ThrowableObject) {
+            return true;
+        } else {
+            return this.y < 230;
+        }
     }
 
     isOnGround() {

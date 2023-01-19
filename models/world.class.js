@@ -21,10 +21,15 @@ class World {
         new backgroundObject('img/5_background/layers/1_first_layer/2.png', canvas.width - 1),
     ];
 
-    statusObject = [
+    statusObjects = [
         new Energy(30),
-        new Wrap(180),
-        new Bottle(330),
+        new Wrap(200),
+        new Bottle(350),
+        new BossEnergy(),
+    ]
+
+    bottles = [
+        new ThrowableObject(),
     ]
 
 
@@ -49,12 +54,13 @@ class World {
         this.addObjectsToWorld(this.clouds);
         this.addObjectToWorld(this.char);
         this.addObjectsToWorld(this.enemies);
+        this.addObjectsToWorld(this.bottles);
 
         ctx.translate(-this.camera_x, 0);
     }
 
     drawStatus() {
-        this.addObjectsToWorld(this.statusObject);
+        this.addObjectsToWorld(this.statusObjects);
     }
 
     update() {
@@ -66,7 +72,20 @@ class World {
         });
         this.enemies.forEach(obj => {
             obj.update();
-        })
+        });
+        this.statusObjects.forEach(obj => {
+            obj.update();
+        });
+
+        this.checkThrowObjects();
+
+    }
+
+    checkThrowObjects() {
+        if (this.keyboard.THROW) {
+            let bottle = new ThrowableObject(this.char.x + 90, this.char.y + 180);
+            this.bottles.push(bottle);
+        }
     }
 
     addObjectsToWorld(objects) {
