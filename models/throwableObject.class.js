@@ -52,9 +52,7 @@ class ThrowableObject extends MovableObject {
         this.speedY = 40;
 
         this.addPhysics();
-        setInterval(() => {
-            this.x += 10;
-        }, 25)
+        setInterval(() => this.x += 10, 25);
     }
 
     update() {

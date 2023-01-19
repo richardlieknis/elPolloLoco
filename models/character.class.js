@@ -45,6 +45,8 @@ class Character extends MovableObject {
         this.y = canvas.height - this.height / 0.85;
         this.speed = speed;
 
+        this.test;
+
 
         this.idle = true;
 
@@ -82,68 +84,61 @@ class Character extends MovableObject {
     }
 
     animation() {
-        // WALKING Animation
-        setInterval(() => {
-            this.walkSound.pause();
-            if (!this.idle && !this.jumping && !this.isHurt() && !this.pepeDead()) {
-                this.walkSound.play();
+        setInterval(() => this.walkingAnimation(), 1000 / 10);
+        setInterval(() => this.jumpingAnimation(), 1000 / 4);
+        setInterval(() => this.hurtAnimation(), 1000 / 10);
+        this.test = setInterval(() => this.deadAnimation(), 1000 / 6.3);
+    }
 
-                let path = this.IMAGES_WALK[this.currentImage];
-                this.img = this.imageCache[path];
-                this.currentImage++;
-                if (this.currentImage == this.IMAGES_WALK.length) {
-                    this.currentImage = 0;
-                }
+    playImages(images) {
+        let path = images[this.currentImage];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+        if (this.currentImage == images.length) {
+            this.currentImage = 0;
+        }
+    }
+
+    walkingAnimation() {
+        this.walkSound.pause();
+        if (!this.idle && !this.jumping && !this.isHurt() && !this.pepeDead()) {
+            this.walkSound.play();
+            this.playImages(this.IMAGES_WALK);
+        }
+    }
+
+    jumpingAnimation() {
+        if (this.jumping && !this.isHurt() && !this.pepeDead()) {
+            if (this.isOnGround()) {
+                this.currentImage = 0;
             }
-        }, 1000 / 10);
+            this.playImages(this.IMAGES_JUMP);
+        }
+    }
 
-        // JUMPING Animation
-        setInterval(() => {
-            if (this.jumping && !this.isHurt() && !this.pepeDead()) {
-                if (this.isOnGround()) {
-                    this.currentImageJ = 0;
-                }
+    hurtAnimation() {
+        if (this.isHurt() && !this.pepeDead()) {
+            this.currentImage = 0; //TODO - Sollte nur einmal ausgeführt werden
+            this.hurtSound.play();
+            this.playImages(this.IMAGES_HURT);
+        }
+    }
 
-                let path = this.IMAGES_JUMP[this.currentImageJ];
-                this.img = this.imageCache[path];
-                this.currentImageJ++;
-                if (this.currentImageJ == this.IMAGES_JUMP.length) {
-                    this.currentImageJ = 0;
-                }
+    deadAnimation() {
+        if (this.pepeDead()) {
+            this.jump();
+
+            let path = this.IMAGES_DEAD[this.currentImageD];
+            this.img = this.imageCache[path];
+            this.currentImageD++;
+            if (this.currentImageD == this.IMAGES_DEAD.length) {
+                this.currentImageD = 0;
+                clearInterval(this.test);
+                this.deadSound.play();
+                //TODO - DeadSound muss anfang des Intervals sein und ein einziges mal abspielen!
+                //TODO - Andere stelle für clearInterval und Sound finden!
             }
-        }, 1000 / 4);
-
-        // HURT Animation
-        setInterval(() => {
-            if (this.isHurt() && !this.pepeDead()) {
-
-                this.hurtSound.play();
-                let path = this.IMAGES_HURT[this.currentImageH];
-                this.img = this.imageCache[path];
-                this.currentImageH++;
-                if (this.currentImageH == this.IMAGES_HURT.length) {
-                    this.currentImageH = 0;
-                }
-            }
-        }, 1000 / 10);
-
-        // DEAD Animation
-
-        let test = setInterval(() => {
-            if (this.pepeDead()) {
-                this.jump();
-
-                let path = this.IMAGES_DEAD[this.currentImageD];
-                this.img = this.imageCache[path];
-                this.currentImageD++;
-                if (this.currentImageD == this.IMAGES_DEAD.length) {
-                    this.currentImageD = 0;
-                    clearInterval(test);
-                    this.deadSound.play();
-                    //TODO - DeadSound muss anfang des Intervals sein und ein einziges mal abspielen!
-                }
-            }
-        }, 1000 / 6.3);
+        }
     }
 
     triggerJumpSound() {
@@ -185,7 +180,7 @@ class Character extends MovableObject {
             }
         }
         if (!keyboard.RIGHT) {
-            this.idle = true; //TODO - Sollte auch true gesetzt werden, wenn nichts passiert
+            this.idle = true; //TODO - Sollte auch auf  true gesetzt werden, wenn nichts passiert
         }
 
         if (keyboard.LEFT) {

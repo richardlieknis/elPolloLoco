@@ -10,6 +10,7 @@ body {
     font-family: sans-serif;
     background-image: url('img/background.png');
     background-position: center;
+    object-fit: fill;
 }
 
 main {
@@ -29,7 +30,7 @@ canvas {
 h1 {
     font-family: 'boots';
     font-size: 48px;
-    color: #F8C266;
+    color: #53401e;
 }
 
 @font-face {

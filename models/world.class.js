@@ -9,6 +9,8 @@ class World {
         new Cloud(0.2),
         new Cloud(0.4),
         new Cloud(0.6),
+        new Cloud(0.3),
+        new Cloud(0.5),
     ]
     bgObjects = [
         new backgroundObject('img/5_background/layers/air.png', 0),
@@ -26,11 +28,9 @@ class World {
         new Wrap(200),
         new Bottle(350),
         new BossEnergy(),
-    ]
+    ];
 
-    bottles = [
-        new ThrowableObject(),
-    ]
+    bottles = [];
 
 
 
