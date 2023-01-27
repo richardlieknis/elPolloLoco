@@ -42,7 +42,7 @@ class Character extends MovableObject {
         this.width = 610 / scale / 2;
         this.height = 1200 / scale / 2;
         this.x = 1;
-        this.y = canvas.height - this.height / 0.85;
+        this.y = canvas.height - this.height - 70;
         this.speed = speed;
 
         this.test;

@@ -39,10 +39,8 @@ window.addEventListener("keyup", (e) => {
 
 window.addEventListener("click", (e) => {
     keyboard.THROW = true;
-    console.log(keyboard.THROW);
     setTimeout(() => {
         keyboard.THROW = false;
-        console.log(keyboard.THROW);
     }, 15);
 
 })

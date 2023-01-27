@@ -73,7 +73,7 @@ class MovableObject {
         if (this instanceof ThrowableObject) {
             return true;
         } else {
-            return this.y < 230;
+            return this.y < canvas.height - this.height - 70;
         }
     }
 
