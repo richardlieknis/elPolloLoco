@@ -8,6 +8,32 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-26.png',
     ];
 
+    IMAGES_IDLE = [
+        'img/2_character_pepe/1_idle/idle/I-1.png',
+        'img/2_character_pepe/1_idle/idle/I-2.png',
+        'img/2_character_pepe/1_idle/idle/I-3.png',
+        'img/2_character_pepe/1_idle/idle/I-4.png',
+        'img/2_character_pepe/1_idle/idle/I-5.png',
+        'img/2_character_pepe/1_idle/idle/I-6.png',
+        'img/2_character_pepe/1_idle/idle/I-7.png',
+        'img/2_character_pepe/1_idle/idle/I-8.png',
+        'img/2_character_pepe/1_idle/idle/I-9.png',
+        'img/2_character_pepe/1_idle/idle/I-10.png',
+    ];
+
+    IMAGES_LONGIDLE = [
+        'img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'img/2_character_pepe/1_idle/long_idle/I-20.png',
+    ];
+
     IMAGES_JUMP = [
         'img/2_character_pepe/3_jump/J-34.png',
         'img/2_character_pepe/3_jump/J-34.png',
@@ -15,13 +41,13 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-35.png',
         'img/2_character_pepe/3_jump/J-36.png',
         'img/2_character_pepe/3_jump/J-36.png',
-    ]
+    ];
 
     IMAGES_HURT = [
         'img/2_character_pepe/4_hurt/H-41.png',
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png',
-    ]
+    ];
 
     IMAGES_DEAD = [
         'img/2_character_pepe/5_dead/D-51.png',
@@ -31,11 +57,12 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-55.png',
         'img/2_character_pepe/5_dead/D-56.png',
         'img/2_character_pepe/5_dead/D-57.png',
-    ]
+    ];
 
     constructor(speed) {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALK);
+        this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
@@ -45,8 +72,12 @@ class Character extends MovableObject {
         this.y = canvas.height - this.height - 70;
         this.speed = speed;
 
-        this.test;
-
+        this.walkInVal;
+        this.jumpInVal;
+        this.idleInVal;
+        this.idleLongInVal;
+        this.hurtInVal;
+        this.deadInVal;
 
         this.idle = true;
 
@@ -76,18 +107,21 @@ class Character extends MovableObject {
             this.jumping = false;
             this.hasPlayed = false;
             this.currentImageJ = 0;
-            if (this.idle && !this.isHurt() && !this.pepeDead()) {
-                this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
-            }
         }
 
     }
 
     animation() {
-        setInterval(() => this.walkingAnimation(), 1000 / 10);
-        setInterval(() => this.jumpingAnimation(), 1000 / 4);
-        setInterval(() => this.hurtAnimation(), 1000 / 10);
-        this.test = setInterval(() => this.deadAnimation(), 1000 / 6.3);
+        this.walkInVal = setInterval(() => this.walkingAnimation(), 1000 / 10);
+        this.jumpInVal = setInterval(() => this.jumpingAnimation(), 1000 / 4);
+        this.hurtInVal = setInterval(() => this.hurtAnimation(), 1000 / 10);
+        this.idleInVal = setInterval(() => this.idleAnimation(), 1000 / 7);
+        this.idleLongInVal = setInterval(() => this.deadAnimation(), 1000 / 6.3);
+    }
+
+    clearAllIntervals() {
+        let allIntervals = [this.walkInVal, this.jumpInVal, this.hurtInVal, this.idleInVal, this.idleInVal];
+        allIntervals.forEach(clearInterval);
     }
 
     playImages(images) {
@@ -96,6 +130,12 @@ class Character extends MovableObject {
         this.currentImage++;
         if (this.currentImage == images.length) {
             this.currentImage = 0;
+        }
+    }
+
+    idleAnimation() {
+        if (!this.jumping && !this.isHurt() && !this.pepeDead() && this.idle) {
+            this.playImages(this.IMAGES_IDLE);
         }
     }
 
