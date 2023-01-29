@@ -15,10 +15,11 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/idle/I-4.png',
         'img/2_character_pepe/1_idle/idle/I-5.png',
         'img/2_character_pepe/1_idle/idle/I-6.png',
-        'img/2_character_pepe/1_idle/idle/I-7.png',
-        'img/2_character_pepe/1_idle/idle/I-8.png',
-        'img/2_character_pepe/1_idle/idle/I-9.png',
-        'img/2_character_pepe/1_idle/idle/I-10.png',
+        // 'img/2_character_pepe/1_idle/idle/I-7.png',
+        // 'img/2_character_pepe/1_idle/idle/I-8.png',
+        // 'img/2_character_pepe/1_idle/idle/I-9.png',
+        // 'img/2_character_pepe/1_idle/idle/I-10.png',
+        //TODO - Die Bilder müssen in playImages() so geladen, dass es immer bei 0 anfängt!
     ];
 
     IMAGES_LONGIDLE = [
@@ -115,7 +116,7 @@ class Character extends MovableObject {
         this.walkInVal = setInterval(() => this.walkingAnimation(), 1000 / 10);
         this.jumpInVal = setInterval(() => this.jumpingAnimation(), 1000 / 4);
         this.hurtInVal = setInterval(() => this.hurtAnimation(), 1000 / 10);
-        this.idleInVal = setInterval(() => this.idleAnimation(), 1000 / 7);
+        this.idleInVal = setInterval(() => this.idleAnimation(), 1000 / 5);
         this.idleLongInVal = setInterval(() => this.deadAnimation(), 1000 / 6.3);
     }
 

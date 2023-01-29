@@ -13,6 +13,8 @@ class MovableObject {
     currentImageH = 0;
     currentImageD = 0;
     currentImageB = 0;
+    currentImageI = 0;
+    currentImageIL = 0;
     flipImage = false;
     jumping = false;
     offsetY = 0;
