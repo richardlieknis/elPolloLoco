@@ -70,11 +70,11 @@ class MovableObject {
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject) {
-            return true;
-        } else {
-            return this.y < canvas.height - this.height - 70;
-        }
+        // if (this instanceof ThrowableObject) {
+        //     return true;
+        // } else {
+        return this.y < canvas.height - this.height - 70;
+        //}
     }
 
     isOnGround() {

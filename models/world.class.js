@@ -12,16 +12,25 @@ class World {
         new Cloud(0.3),
         new Cloud(0.5),
     ]
-    bgObjects = [
-        new backgroundObject('img/5_background/layers/air.png', 0),
-        new backgroundObject('img/5_background/layers/3_third_layer/1.png', 0),
-        new backgroundObject('img/5_background/layers/2_second_layer/1.png', 0),
-        new backgroundObject('img/5_background/layers/1_first_layer/1.png', 0),
-        new backgroundObject('img/5_background/layers/air.png', canvas.width - 1),
-        new backgroundObject('img/5_background/layers/3_third_layer/2.png', canvas.width - 1),
-        new backgroundObject('img/5_background/layers/2_second_layer/2.png', canvas.width - 1),
-        new backgroundObject('img/5_background/layers/1_first_layer/2.png', canvas.width - 1),
-    ];
+
+    bgObjDesert = [
+        new backgroundObject('img/5_background/layers/1_first_layer/1.png', 0, 0),
+        new backgroundObject('img/5_background/layers/1_first_layer/2.png', canvas.width - 1, 0),
+        new backgroundObject('img/5_background/layers/1_first_layer/1.png', canvas.width * 2 - 1, 0),
+        new backgroundObject('img/5_background/layers/1_first_layer/2.png', canvas.width * 3 - 1, 0),
+    ]
+
+    bgObjParallax = [
+        new backgroundObject('img/5_background/layers/air.png', 0, -1),
+        new backgroundObject('img/5_background/layers/3_third_layer/1.png', 0, -0.3),
+        new backgroundObject('img/5_background/layers/2_second_layer/1.png', 0, -0.15),
+    ]
+
+    bgObjParallax2 = [
+        new backgroundObject('img/5_background/layers/air.png', 0, -1),
+        new backgroundObject('img/5_background/layers/3_third_layer/2.png', 0, -0.3),
+        new backgroundObject('img/5_background/layers/2_second_layer/2.png', 0, -0.15),
+    ]
 
     statusObjects = [
         new Energy(30),
@@ -37,7 +46,7 @@ class World {
     constructor(keyboard) {
         this.keyboard = keyboard;
         this.camera_x = 0;
-        this.end = 1400;
+        this.end = canvas.width * 3;
         this.world = this;
 
         this.ambientSound = new Audio("audio/desert.wav");
@@ -50,7 +59,11 @@ class World {
 
     draw() {
         ctx.translate(this.camera_x, 0);
-        this.addObjectsToWorld(this.bgObjects);
+        this.drawParallaxBg(this.bgObjParallax, 0);
+        this.drawParallaxBg(this.bgObjParallax2, canvas.width - 1);
+        this.drawParallaxBg(this.bgObjParallax, canvas.width * 2 - 1);
+        this.drawParallaxBg(this.bgObjParallax2, canvas.width * 3 - 1);
+        this.addObjectsToWorld(this.bgObjDesert);
         this.addObjectsToWorld(this.clouds);
         this.addObjectToWorld(this.char);
         this.addObjectsToWorld(this.enemies);
@@ -61,6 +74,15 @@ class World {
 
     drawStatus() {
         this.addObjectsToWorld(this.statusObjects);
+    }
+
+    drawParallaxBg(objects, offset) {
+        for (let i = 0; i < objects.length; i++) {
+            let obj = objects[i];
+            let speed = obj.parallaxSpeed;
+            obj.x = (this.camera_x * speed) + offset;
+            this.addObjectToWorld(obj);
+        }
     }
 
     update() {

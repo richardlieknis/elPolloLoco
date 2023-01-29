@@ -161,7 +161,7 @@ class Character extends MovableObject {
     isHurt() {
         let results = world.enemies.map(obj => this.checkCollision(obj));
         if (results.includes(true)) {
-            this.hit();
+            //this.hit();
         }
         return results.includes(true);
     }
@@ -179,7 +179,7 @@ class Character extends MovableObject {
                 this.moveRight(this.speed);
             }
         }
-        if (!keyboard.RIGHT) {
+        if (!keyboard.RIGHT && !keyboard.LEFT && !keyboard.jump) {
             this.idle = true; //TODO - Sollte auch auf  true gesetzt werden, wenn nichts passiert
         }
 
@@ -205,7 +205,7 @@ class Character extends MovableObject {
                     return true;
                 } else return false;
             case "right":
-                if (this.x < world.end + 950) {
+                if (this.x < world.end + 800) {
                     return true;
                 } else return false;
             default:
@@ -215,7 +215,7 @@ class Character extends MovableObject {
 
     moveCamera() {
         if (this.x > 200 && this.x < world.end) {
-            world.camera_x = -this.x + 200;
+            world.camera_x = -this.x + 200; //world.camera_x = -this.x + 200;
         }
     }
 }
