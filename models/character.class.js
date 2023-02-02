@@ -80,6 +80,8 @@ class Character extends MovableObject {
         this.hurtInVal;
         this.deadInVal;
 
+        this.enemyHitted = false;
+
         this.idle = true;
 
         this.walkSound = new Audio('audio/walking.mp3');
@@ -100,6 +102,7 @@ class Character extends MovableObject {
     }
 
     update(keyboard) {
+        this.jumpOnEnemy();
 
         if (!this.pepeDead()) {
             this.addControls(keyboard);
@@ -187,7 +190,7 @@ class Character extends MovableObject {
     }
 
     jump() {
-        if (!this.isAboveGround()) {
+        if (!this.isAboveGround() || this.enemyHitted) {
             if (this.hasPlayed === false) {
                 if (!this.pepeDead()) {
                     this.jumpSound.play()
@@ -205,6 +208,13 @@ class Character extends MovableObject {
             //this.hit();
         }
         return results.includes(true);
+    }
+
+    jumpOnEnemy() {
+        let results = world.enemies.map(obj => this.checkCollision(obj));
+        if (results.includes(true)) {
+            this.jump();
+        }
     }
 
     pepeDead() {

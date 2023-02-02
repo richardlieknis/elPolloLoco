@@ -13,6 +13,11 @@ class World {
         new Cloud(0.5),
     ]
 
+    tumbleweeds = [
+        new Tumbleweed(0.5),
+        new Tumbleweed(0.2),
+    ]
+
     bgObjDesert = [
         new backgroundObject('img/5_background/layers/1_first_layer/1.png', 0, 0),
         new backgroundObject('img/5_background/layers/1_first_layer/2.png', canvas.width - 1, 0),
@@ -65,6 +70,7 @@ class World {
         this.drawParallaxBg(this.bgObjParallax2, canvas.width * 3 - 1);
         this.addObjectsToWorld(this.bgObjDesert);
         this.addObjectsToWorld(this.clouds);
+        this.addObjectsToWorld(this.tumbleweeds);
         this.addObjectToWorld(this.char);
         this.addObjectsToWorld(this.enemies);
         this.addObjectsToWorld(this.bottles);
@@ -87,9 +93,12 @@ class World {
 
     update() {
         this.draw();
-        this.drawStatus();
+        //this.drawStatus();
         this.char.update(this.keyboard);
         this.clouds.forEach(obj => {
+            obj.update();
+        });
+        this.tumbleweeds.forEach(obj => {
             obj.update();
         });
         this.enemies.forEach(obj => {
@@ -117,7 +126,7 @@ class World {
     }
 
     addObjectToWorld(object) {
-        //object.addCollisionRect();
+        object.addCollisionRect();
 
         if (object.flipImage) {
             ctx.save();
