@@ -14,8 +14,8 @@ class World {
     ]
 
     tumbleweeds = [
-        new Tumbleweed(0.5),
-        new Tumbleweed(0.2),
+        new Tumbleweed(1400, 5),
+        new Tumbleweed(2500, 3.1),
     ]
 
     bgObjDesert = [
@@ -70,8 +70,15 @@ class World {
         this.drawParallaxBg(this.bgObjParallax2, canvas.width * 3 - 1);
         this.addObjectsToWorld(this.bgObjDesert);
         this.addObjectsToWorld(this.clouds);
-        this.addObjectsToWorld(this.tumbleweeds);
+
         this.addObjectToWorld(this.char);
+
+
+
+
+
+
+        this.addObjectsToWorld(this.tumbleweeds);
         this.addObjectsToWorld(this.enemies);
         this.addObjectsToWorld(this.bottles);
 
