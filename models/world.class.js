@@ -100,7 +100,7 @@ class World {
 
     update() {
         this.draw();
-        //this.drawStatus();
+        this.drawStatus();
         this.char.update(this.keyboard);
         this.clouds.forEach(obj => {
             obj.update();
@@ -133,7 +133,7 @@ class World {
     }
 
     addObjectToWorld(object) {
-        object.addCollisionRect();
+        //object.addCollisionRect();
 
         if (object.flipImage) {
             ctx.save();

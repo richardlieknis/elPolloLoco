@@ -83,6 +83,7 @@ class Character extends MovableObject {
         this.enemyHitted = false;
 
         this.idle = true;
+        this.isDead = false;
 
         this.walkSound = new Audio('audio/walking.mp3');
         this.walkSound.volume = 0.8;
@@ -102,8 +103,6 @@ class Character extends MovableObject {
     }
 
     update(keyboard) {
-        this.jumpOnEnemy();
-
         if (!this.pepeDead()) {
             this.addControls(keyboard);
         }
@@ -138,21 +137,21 @@ class Character extends MovableObject {
     }
 
     idleAnimation() {
-        if (!this.jumping && !this.isHurt() && !this.pepeDead() && this.idle) {
+        if (!this.jumping && !this.isHurt() && !this.isHurtByTumbleweed() && !this.pepeDead() && this.idle) {
             this.playImages(this.IMAGES_IDLE);
         }
     }
 
     walkingAnimation() {
         this.walkSound.pause();
-        if (!this.idle && !this.jumping && !this.isHurt() && !this.pepeDead()) {
+        if (!this.idle && !this.jumping && !this.isHurt() && !this.isHurtByTumbleweed() && !this.pepeDead()) {
             this.walkSound.play();
             this.playImages(this.IMAGES_WALK);
         }
     }
 
     jumpingAnimation() {
-        if (this.jumping && !this.isHurt() && !this.pepeDead()) {
+        if (this.jumping && !this.isHurt() && !this.isHurtByTumbleweed() && !this.pepeDead()) {
             if (this.isOnGround()) {
                 this.currentImage = 0;
             }
@@ -161,7 +160,7 @@ class Character extends MovableObject {
     }
 
     hurtAnimation() {
-        if (this.isHurt() && !this.pepeDead()) {
+        if ((this.isHurt() || this.isHurtByTumbleweed()) && !this.isDead) {
             this.currentImage = 0; //TODO - Sollte nur einmal ausgeführt werden
             this.hurtSound.play();
             this.playImages(this.IMAGES_HURT);
@@ -169,7 +168,7 @@ class Character extends MovableObject {
     }
 
     deadAnimation() {
-        if (this.pepeDead()) {
+        if (this.pepeDead() && !this.isDead) {
             this.jump();
 
             let path = this.IMAGES_DEAD[this.currentImageD];
@@ -177,8 +176,9 @@ class Character extends MovableObject {
             this.currentImageD++;
             if (this.currentImageD == this.IMAGES_DEAD.length) {
                 this.currentImageD = 0;
-                clearInterval(this.test);
+                this.isDead = true;
                 this.deadSound.play();
+                this.clearAllIntervals();
                 //TODO - DeadSound muss anfang des Intervals sein und ein einziges mal abspielen!
                 //TODO - Andere stelle für clearInterval und Sound finden!
             }
@@ -190,7 +190,7 @@ class Character extends MovableObject {
     }
 
     jump() {
-        if (!this.isAboveGround() || this.enemyHitted) {
+        if (!this.isAboveGround()) {
             if (this.hasPlayed === false) {
                 if (!this.pepeDead()) {
                     this.jumpSound.play()
@@ -203,18 +203,19 @@ class Character extends MovableObject {
     }
 
     isHurt() {
-        let results = world.enemies.map(obj => this.checkCollision(obj));
-        if (results.includes(true)) {
-            //this.hit();
+        let result = world.enemies.map(obj => this.checkCollision(obj));
+        if (result.includes(true)) {
+            this.hit(5);
         }
-        return results.includes(true);
+        return result.includes(true);
     }
 
-    jumpOnEnemy() {
-        let results = world.enemies.map(obj => this.checkCollision(obj));
-        if (results.includes(true)) {
-            this.jump();
+    isHurtByTumbleweed() {
+        let result = world.tumbleweeds.map(obj => this.checkCollision(obj));
+        if (result.includes(true)) {
+            this.hit(2);
         }
+        return result.includes(true);
     }
 
     pepeDead() {
@@ -266,7 +267,7 @@ class Character extends MovableObject {
 
     moveCamera() {
         if (this.x > 200 && this.x < world.end) {
-            world.camera_x = -this.x + 200; //world.camera_x = -this.x + 200;
+            world.camera_x = -this.x + 200;
         }
     }
 }

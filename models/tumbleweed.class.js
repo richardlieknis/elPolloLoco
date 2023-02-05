@@ -28,7 +28,7 @@ class Tumbleweed extends MovableObject {
         this.velocity = 0;
         this.rotation = 1;
         this.addTumbleweedPhysics();
-        this.speed = Math.floor(Math.random() * 3 + 4);
+        this.speed = Math.floor(Math.random() * 8 + 4);
     }
 
 
@@ -36,7 +36,6 @@ class Tumbleweed extends MovableObject {
     checkOutOfLevel() {
         if (this.x + this.width < 0) {
             this.reset();
-            console.log("RESET");
         }
     }
 

@@ -47,15 +47,17 @@ class ThrowableObject extends MovableObject {
     }
 
     throw (x, y) {
-        this.addPhysics();
-        this.y = y;
-        this.speedY = 40;
-        if (!world.char.flipImage) {
-            this.x = x;
-            setInterval(() => this.x += 10, 25);
-        } else {
-            this.x = x - 70;
-            setInterval(() => this.x += -10, 25);
+        if (!world.char.isDead) {
+            this.addPhysics();
+            this.y = y;
+            this.speedY = 40;
+            if (!world.char.flipImage) {
+                this.x = x;
+                setInterval(() => this.x += 10, 25);
+            } else {
+                this.x = x - 70;
+                setInterval(() => this.x += -10, 25);
+            }
         }
     }
 
