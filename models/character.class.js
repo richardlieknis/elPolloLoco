@@ -103,6 +103,8 @@ class Character extends MovableObject {
     }
 
     update(keyboard) {
+        console.log(this.speedY);
+        this.checkAllChickens();
         if (!this.pepeDead()) {
             this.addControls(keyboard);
         }
@@ -110,6 +112,7 @@ class Character extends MovableObject {
             this.jumping = false;
             this.hasPlayed = false;
             this.currentImageJ = 0;
+            this.y = canvas.height - this.height - 70;
         }
 
     }
@@ -202,9 +205,13 @@ class Character extends MovableObject {
         }
     }
 
+    checkAllChickens() {
+        let allChickens = world.enemies.map(obj => this.jumpOnChicken(obj));
+    }
+
     isHurt() {
         let result = world.enemies.map(obj => this.checkCollision(obj));
-        if (result.includes(true)) {
+        if (result.includes(true) && !this.jumping) {
             this.hit(5);
         }
         return result.includes(true);
@@ -216,6 +223,19 @@ class Character extends MovableObject {
             this.hit(2);
         }
         return result.includes(true);
+    }
+
+    jumpOnChicken(chicken) {
+        if (this.checkCollision(chicken) && this.jumping && this.speedY < 0) {
+            //chicken.img = chicken.imageCache['img/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
+            //TODO - DEAD Chicken IMAGE laden!
+            chicken.speed = 0;
+            setTimeout(() => {
+                chicken.x = -100;
+                chicken.y = -100;
+            }, 500);
+            this.speedY = 25;
+        }
     }
 
     pepeDead() {

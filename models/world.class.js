@@ -14,8 +14,8 @@ class World {
     ]
 
     tumbleweeds = [
-        new Tumbleweed(1400, 5),
-        new Tumbleweed(2500, 3.1),
+        //new Tumbleweed(1400, 5),
+        //new Tumbleweed(2500, 3.1),
     ]
 
     bgObjDesert = [
@@ -147,4 +147,7 @@ class World {
             ctx.restore();
         }
     }
+
+
+
 }

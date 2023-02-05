@@ -5,7 +5,7 @@ class Chicken extends MovableObject {
         'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
     ];
 
-    IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
+
 
 
     constructor(speed) {
@@ -16,6 +16,9 @@ class Chicken extends MovableObject {
         this.x = 100 + Math.random() * (canvas.width - 100);
         this.y = canvas.height - this.height / 0.5;
         this.speed = speed;
+        this.dead = false;
+
+        this.IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
 
         this.animation();
     }
