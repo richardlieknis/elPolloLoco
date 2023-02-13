@@ -1,16 +1,16 @@
 class World {
-    char = new Character(3);
+    char = new Character(1.5);
     enemies = [
         new Chicken(0.2),
         new Chicken(0.5),
-        new Chicken(1),
+        new Chicken(0.4),
     ];
     clouds = [
-        new Cloud(0.2),
-        new Cloud(0.4),
-        new Cloud(0.6),
+        new Cloud(0.08),
+        new Cloud(0.1),
         new Cloud(0.3),
         new Cloud(0.5),
+        new Cloud(0.2),
     ]
 
     tumbleweeds = [

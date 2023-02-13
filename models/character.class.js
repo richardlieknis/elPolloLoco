@@ -103,7 +103,7 @@ class Character extends MovableObject {
     }
 
     update(keyboard) {
-        console.log(this.speedY);
+        console.log(this.isDead);
         this.checkAllChickens();
         if (!this.pepeDead()) {
             this.addControls(keyboard);
@@ -165,7 +165,6 @@ class Character extends MovableObject {
     hurtAnimation() {
         if ((this.isHurt() || this.isHurtByTumbleweed()) && !this.isDead) {
             this.currentImage = 0; //TODO - Sollte nur einmal ausgeführt werden
-            this.hurtSound.play();
             this.playImages(this.IMAGES_HURT);
         }
     }
@@ -173,6 +172,7 @@ class Character extends MovableObject {
     deadAnimation() {
         if (this.pepeDead() && !this.isDead) {
             this.jump();
+
 
             let path = this.IMAGES_DEAD[this.currentImageD];
             this.img = this.imageCache[path];
@@ -213,6 +213,7 @@ class Character extends MovableObject {
         let result = world.enemies.map(obj => this.checkCollision(obj));
         if (result.includes(true) && !this.jumping) {
             this.hit(5);
+            this.hurtSound.play();
         }
         return result.includes(true);
     }
@@ -221,12 +222,13 @@ class Character extends MovableObject {
         let result = world.tumbleweeds.map(obj => this.checkCollision(obj));
         if (result.includes(true)) {
             this.hit(2);
+            this.hurtSound.play();
         }
         return result.includes(true);
     }
 
     jumpOnChicken(chicken) {
-        if (this.checkCollision(chicken) && this.jumping && this.speedY < 0) {
+        if (this.checkCollision(chicken) && this.jumping && this.speedY < 0 && !this.pepeDead()) {
             //chicken.img = chicken.imageCache['img/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
             //TODO - DEAD Chicken IMAGE laden!
             chicken.speed = 0;

@@ -25,12 +25,14 @@ main {
 canvas {
     background-color: aliceblue;
     border-radius: 3%;
+    cursor: cell;
 }
 
 h1 {
     font-family: 'boots';
     font-size: 48px;
     color: #53401e;
+    user-select: none;
 }
 
 @font-face {
