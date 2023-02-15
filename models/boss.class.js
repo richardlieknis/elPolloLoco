@@ -42,9 +42,9 @@ class Boss extends MovableObject {
     constructor(speed) {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALK);
-        this.width = 248 / scale / 2;
-        this.height = 243 / scale / 2;
-        this.x = 100 + Math.random() * (canvas.width - 100);
+        this.width = 1045 / scale / 2;
+        this.height = 1217 / scale / 2;
+        this.x = 300;
         this.y = canvas.height - this.height / 0.5;
         this.speed = speed;
         this.dead = false;
