@@ -75,14 +75,7 @@ class World {
         this.drawParallaxBg(this.bgObjParallax2, canvas.width * 3 - 1);
         this.addObjectsToWorld(this.bgObjDesert);
         this.addObjectsToWorld(this.clouds);
-
         this.addObjectToWorld(this.char);
-
-
-
-
-
-
         this.addObjectsToWorld(this.tumbleweeds);
         this.addObjectsToWorld(this.enemies);
         this.addObjectsToWorld(this.bottles);
@@ -91,7 +84,7 @@ class World {
     }
 
     drawStatus() {
-        this.addObjectsToWorld(this.statusObjects);
+        //this.addObjectsToWorld(this.statusObjects);
     }
 
     drawParallaxBg(objects, offset) {
@@ -138,7 +131,7 @@ class World {
     }
 
     addObjectToWorld(object) {
-        //object.addCollisionRect();
+        object.addCollisionRect();
 
         if (object.flipImage) {
             ctx.save();

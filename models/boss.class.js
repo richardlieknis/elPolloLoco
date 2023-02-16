@@ -44,7 +44,7 @@ class Boss extends MovableObject {
         this.loadImages(this.IMAGES_WALK);
         this.width = 1045 / scale / 2;
         this.height = 1217 / scale / 2;
-        this.x = 300;
+        this.x = 1300;
         this.y = canvas.height - this.height - 50;
         this.speed = speed;
         this.dead = false;
@@ -66,7 +66,7 @@ class Boss extends MovableObject {
             if (this.currentImage == this.IMAGES_WALK.length) {
                 this.currentImage = 0;
             }
-        }, 1000 / 10)
+        }, 1000 / 5)
     }
 
 }

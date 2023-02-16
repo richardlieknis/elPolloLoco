@@ -233,8 +233,8 @@ class Character extends MovableObject {
             //TODO - DEAD Chicken IMAGE laden!
             chicken.speed = 0;
             setTimeout(() => {
-                chicken.x = -100;
-                chicken.y = -100;
+                chicken.x = -300;
+                chicken.y = -300;
             }, 500);
             this.speedY = 25;
         }
