@@ -40,16 +40,16 @@ class Boss extends MovableObject {
 
 
     constructor(speed) {
-        super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
+        super().loadImage('img/4_enemie_boss_chicken/1_walk/G1.png');
         this.loadImages(this.IMAGES_WALK);
         this.width = 1045 / scale / 2;
         this.height = 1217 / scale / 2;
         this.x = 300;
-        this.y = canvas.height - this.height / 0.5;
+        this.y = canvas.height - this.height - 50;
         this.speed = speed;
         this.dead = false;
 
-        this.IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
+        //this.IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
 
         this.animation();
     }

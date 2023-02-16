@@ -8,7 +8,7 @@ class World {
         new Chicken(0.2),
         new Chicken(0.1),
         new Chicken(0.4),
-        //new Boss(0.2),
+        new Boss(0.2),
     ];
     clouds = [
         new Cloud(0.08),
