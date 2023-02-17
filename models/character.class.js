@@ -103,7 +103,6 @@ class Character extends MovableObject {
     }
 
     update(keyboard) {
-        console.log(this.isDead);
         this.checkAllChickens();
         if (!this.pepeDead()) {
             this.addControls(keyboard);
@@ -229,8 +228,8 @@ class Character extends MovableObject {
 
     jumpOnChicken(chicken) {
         if (this.checkCollision(chicken) && this.jumping && this.speedY < 0 && !this.pepeDead()) {
-            //chicken.img = chicken.imageCache['img/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
-            //TODO - DEAD Chicken IMAGE laden!
+            chicken.clearAllIntervals();
+            chicken.img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
             chicken.speed = 0;
             setTimeout(() => {
                 chicken.x = -300;

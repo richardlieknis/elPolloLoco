@@ -33,6 +33,10 @@ class ThrowableObject extends MovableObject {
         this.throw(x, y);
     }
 
+    update() {
+        this.checkCollisionWithEnemies();
+    }
+
     animation() {
         setInterval(() => {
             if (this.test) {
@@ -44,6 +48,24 @@ class ThrowableObject extends MovableObject {
                 }
             }
         }, 1000 / 10);
+    }
+
+    checkCollisionWithEnemies() {
+        world.enemies.map(obj => this.killEnemyWithBottle(obj));
+    }
+
+    killEnemyWithBottle(chicken) {
+        if (this.checkCollision(chicken)) {
+            chicken.clearAllIntervals();
+            chicken.img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
+            chicken.speed = 0;
+            setTimeout(() => {
+                chicken.x = -300;
+                chicken.y = -300;
+            }, 500);
+            this.speedY = 0;
+            this.x = 10000;
+        }
     }
 
     throw (x, y) {
@@ -59,9 +81,5 @@ class ThrowableObject extends MovableObject {
                 setInterval(() => this.x += -12, 25);
             }
         }
-    }
-
-    update() {
-        //
     }
 }

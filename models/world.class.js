@@ -7,9 +7,11 @@ class World {
         new Chicken(0.3),
         new Chicken(0.2),
         new Chicken(0.1),
-        new Chicken(0.4),
-        new Boss(0.2),
+        new Chicken(0.4)
     ];
+
+    boss = new Boss(0.2);
+
     clouds = [
         new Cloud(0.08),
         new Cloud(0.1),
@@ -19,8 +21,8 @@ class World {
     ]
 
     tumbleweeds = [
-        //new Tumbleweed(1400, 5),
-        //new Tumbleweed(2500, 3.1),
+        new Tumbleweed(1400, 5),
+        new Tumbleweed(2500, 3.1),
     ]
 
     bgObjDesert = [
@@ -75,6 +77,7 @@ class World {
         this.drawParallaxBg(this.bgObjParallax2, canvas.width * 3 - 1);
         this.addObjectsToWorld(this.bgObjDesert);
         this.addObjectsToWorld(this.clouds);
+        this.addObjectToWorld(this.boss);
         this.addObjectToWorld(this.char);
         this.addObjectsToWorld(this.tumbleweeds);
         this.addObjectsToWorld(this.enemies);
@@ -84,7 +87,7 @@ class World {
     }
 
     drawStatus() {
-        //this.addObjectsToWorld(this.statusObjects);
+        this.addObjectsToWorld(this.statusObjects);
     }
 
     drawParallaxBg(objects, offset) {
@@ -100,6 +103,7 @@ class World {
         this.draw();
         this.drawStatus();
         this.char.update(this.keyboard);
+        this.boss.update();
         this.clouds.forEach(obj => {
             obj.update();
         });
@@ -110,6 +114,9 @@ class World {
             obj.update();
         });
         this.statusObjects.forEach(obj => {
+            obj.update();
+        });
+        this.bottles.forEach(obj => {
             obj.update();
         });
 
@@ -131,7 +138,7 @@ class World {
     }
 
     addObjectToWorld(object) {
-        object.addCollisionRect();
+        //object.addCollisionRect();
 
         if (object.flipImage) {
             ctx.save();

@@ -18,6 +18,8 @@ class Chicken extends MovableObject {
         this.speed = speed;
         this.dead = false;
 
+        this.testInv;
+
         this.IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
 
         this.animation();
@@ -28,7 +30,7 @@ class Chicken extends MovableObject {
     }
 
     animation() {
-        setInterval(() => {
+        this.testInv = setInterval(() => {
             let path = this.IMAGES_WALK[this.currentImage];
             this.img = this.imageCache[path];
             this.currentImage++;
@@ -36,6 +38,11 @@ class Chicken extends MovableObject {
                 this.currentImage = 0;
             }
         }, 1000 / 10)
+    }
+
+    clearAllIntervals() {
+        let allIntervals = [this.testInv];
+        allIntervals.forEach(clearInterval);
     }
 
 }
