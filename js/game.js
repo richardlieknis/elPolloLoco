@@ -1,5 +1,6 @@
 let world;
 let keyboard = new Keyboard();
+let lastTime = performance.now();
 
 function init() {
     world = new World(keyboard);
@@ -8,8 +9,13 @@ function init() {
 }
 
 function gameLoop() {
+    let currentTime = performance.now();
+    let deltaTime = (currentTime - lastTime) / 1000;
+
     clearCanvas();
-    world.update();
+    world.update(deltaTime);
+
+    lastTime = currentTime;
     requestAnimationFrame(gameLoop);
 }
 

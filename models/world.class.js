@@ -99,25 +99,25 @@ class World {
         }
     }
 
-    update() {
+    update(deltaTime) {
         this.draw();
         this.drawStatus();
-        this.char.update(this.keyboard);
-        this.boss.update();
+        this.char.update(this.keyboard, deltaTime);
+        this.boss.update(deltaTime);
         this.clouds.forEach(obj => {
-            obj.update();
+            obj.update(deltaTime);
         });
         this.tumbleweeds.forEach(obj => {
-            obj.update();
+            obj.update(deltaTime);
         });
         this.enemies.forEach(obj => {
-            obj.update();
+            obj.update(deltaTime);
         });
         this.statusObjects.forEach(obj => {
-            obj.update();
+            obj.update(deltaTime);
         });
         this.bottles.forEach(obj => {
-            obj.update();
+            obj.update(deltaTime);
         });
 
         this.checkThrowObjects();
