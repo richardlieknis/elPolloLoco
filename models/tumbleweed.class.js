@@ -15,8 +15,8 @@ class Tumbleweed extends MovableObject {
         this.tumbleweed = true;
     }
 
-    update() {
-        this.x -= this.speed;
+    update(deltaTime) {
+        this.x -= this.speed * deltaTime;
         this.checkOutOfLevel();
         this.addTumbleweedPhysics();
         this.rotation -= 0.03;
@@ -28,7 +28,7 @@ class Tumbleweed extends MovableObject {
         this.velocity = 0;
         this.rotation = 1;
         this.addTumbleweedPhysics();
-        this.speed = Math.floor(Math.random() * 8 + 4);
+        this.speed = Math.floor(Math.random() * 6 + 14);
     }
 
 

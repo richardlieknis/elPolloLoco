@@ -1,16 +1,16 @@
 class World {
-    char = new Character(1.5);
+    char = new Character(3);
     enemies = [
-        new Chicken(0.2),
+        new Chicken(1.2),
         new Chicken(0.5),
-        new Chicken(0.4),
+        new Chicken(0.8),
+        new Chicken(1.3),
+        new Chicken(0.9),
         new Chicken(0.3),
-        new Chicken(0.2),
-        new Chicken(0.1),
         new Chicken(0.4)
     ];
 
-    boss = new Boss(0.2);
+    boss = new Boss(1);
 
     clouds = [
         new Cloud(0.08),
@@ -21,8 +21,8 @@ class World {
     ]
 
     tumbleweeds = [
-        new Tumbleweed(1400, 5),
-        new Tumbleweed(2500, 3.1),
+        new Tumbleweed(1400, 10),
+        new Tumbleweed(2500, 8),
     ]
 
     bgObjDesert = [

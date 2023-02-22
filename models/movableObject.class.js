@@ -89,11 +89,11 @@ class MovableObject {
         return (this.speedY <= -30)
     }
 
-    moveLeft() {
-        this.x -= this.speed;
+    moveLeft(speed) {
+        this.x -= speed;
     }
 
-    moveRight() {
-        this.x += this.speed;
+    moveRight(speed) {
+        this.x += speed;
     }
 }

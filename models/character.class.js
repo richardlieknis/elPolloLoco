@@ -102,10 +102,10 @@ class Character extends MovableObject {
 
     }
 
-    update(keyboard) {
+    update(keyboard, deltaTime) {
         this.checkAllChickens();
         if (!this.pepeDead()) {
-            this.addControls(keyboard);
+            this.addControls(keyboard, deltaTime);
         }
         if (this.isOnGround()) {
             this.jumping = false;
@@ -243,13 +243,13 @@ class Character extends MovableObject {
         return this.energy <= 0;
     }
 
-    addControls(keyboard) {
+    addControls(keyboard, deltaTime) {
         if (keyboard.RIGHT) {
             this.moveCamera();
             this.idle = false;
             this.flipImage = false;
             if (this.isInLevel("right")) {
-                this.moveRight(this.speed);
+                this.moveRight(this.speed * deltaTime);
             }
         }
         if (!keyboard.RIGHT && !keyboard.LEFT && !keyboard.jump) {
@@ -261,7 +261,8 @@ class Character extends MovableObject {
             this.idle = false;
             this.flipImage = true;
             if (this.isInLevel("left")) {
-                this.moveLeft(this.speed);
+                this.moveLeft(this.speed * deltaTime);
+                console.log(deltaTime);
             }
         }
 

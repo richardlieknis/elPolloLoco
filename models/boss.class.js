@@ -44,18 +44,16 @@ class Boss extends MovableObject {
         this.loadImages(this.IMAGES_WALK);
         this.width = 1045 / scale / 2;
         this.height = 1217 / scale / 2;
-        this.x = 1300;
+        this.x = 3300;
         this.y = canvas.height - this.height - 50;
         this.speed = speed;
         this.dead = false;
 
-        //this.IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
-
         this.animation();
     }
 
-    update() {
-        this.moveLeft(this.speed);
+    update(deltaTime) {
+        this.moveLeft(this.speed * deltaTime);
     }
 
     animation() {

@@ -10,7 +10,7 @@ function init() {
 
 function gameLoop() {
     let currentTime = performance.now();
-    let deltaTime = (currentTime - lastTime) / 1000;
+    let deltaTime = (currentTime - lastTime) / 20;
 
     clearCanvas();
     world.update(deltaTime);
