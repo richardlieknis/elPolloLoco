@@ -30,6 +30,8 @@ class World {
         new backgroundObject('img/5_background/layers/1_first_layer/2.png', canvas.width - 1, 0),
         new backgroundObject('img/5_background/layers/1_first_layer/1.png', canvas.width * 2 - 1, 0),
         new backgroundObject('img/5_background/layers/1_first_layer/2.png', canvas.width * 3 - 1, 0),
+        new backgroundObject('img/5_background/layers/1_first_layer/1.png', canvas.width * 4 - 1, 0),
+        new backgroundObject('img/5_background/layers/1_first_layer/2.png', canvas.width * 5 - 1, 0),
     ]
 
     bgObjParallax = [
@@ -58,7 +60,7 @@ class World {
     constructor(keyboard) {
         this.keyboard = keyboard;
         this.camera_x = 0;
-        this.end = canvas.width * 3;
+        this.end = canvas.width * 5;
         this.world = this;
 
         this.ambientSound = new Audio("audio/desert.wav");
@@ -75,6 +77,9 @@ class World {
         this.drawParallaxBg(this.bgObjParallax2, canvas.width - 1);
         this.drawParallaxBg(this.bgObjParallax, canvas.width * 2 - 1);
         this.drawParallaxBg(this.bgObjParallax2, canvas.width * 3 - 1);
+        this.drawParallaxBg(this.bgObjParallax, canvas.width * 4 - 1);
+        this.drawParallaxBg(this.bgObjParallax2, canvas.width * 5 - 1);
+
         this.addObjectsToWorld(this.bgObjDesert);
         this.addObjectsToWorld(this.clouds);
         this.addObjectToWorld(this.boss);

@@ -44,16 +44,31 @@ class Boss extends MovableObject {
         this.loadImages(this.IMAGES_WALK);
         this.width = 1045 / scale / 2;
         this.height = 1217 / scale / 2;
-        this.x = 3300;
+        this.x = 6600;
         this.y = canvas.height - this.height - 50;
         this.speed = speed;
         this.dead = false;
+        this.trigger = false;
 
         this.animation();
     }
 
     update(deltaTime) {
-        this.moveLeft(this.speed * deltaTime);
+        if (world.char.x > 6000 || this.trigger) {
+            this.trigger = true;
+            this.bossMovement(deltaTime);
+        }
+    }
+
+    bossMovement(deltaTime) {
+        let positionDif = this.x - world.char.x;
+        if (positionDif > 0) {
+            this.moveLeft(this.speed * deltaTime);
+            this.flipImage = false;
+        } else if (positionDif < 0) {
+            this.moveRight(this.speed * deltaTime);
+            this.flipImage = true;
+        }
     }
 
     animation() {

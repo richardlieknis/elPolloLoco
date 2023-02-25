@@ -27,7 +27,7 @@ class Tumbleweed extends MovableObject {
         let randomTime = Math.floor(Math.random() * 5 + 1);
 
         setTimeout(() => {
-            this.x = canvas.width * 4;
+            this.x = canvas.width * 6;
             this.y = canvas.height - 250;
             this.velocity = 0;
             this.rotation = 1;
