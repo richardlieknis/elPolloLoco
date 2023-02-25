@@ -29,6 +29,9 @@ window.addEventListener("keydown", (e) => {
     if (e.keyCode === 32) {
         keyboard.JUMP = true;
     }
+    if (e.keyCode === 69) {
+        keyboard.EXTRA = true;
+    }
 });
 
 window.addEventListener("keyup", (e) => {
@@ -40,6 +43,9 @@ window.addEventListener("keyup", (e) => {
     }
     if (e.keyCode === 32) {
         keyboard.JUMP = false;
+    }
+    if (e.keyCode === 69) {
+        keyboard.EXTRA = false;
     }
 });
 

@@ -54,11 +54,31 @@ class Boss extends MovableObject {
         this.dead = false;
         this.trigger = false;
 
+        this.alerted = false;
+        this.attacking = false;
+
+        this.prevX = null;
+
         this.intervalId;
         this.animation();
     }
 
+    hasXChanged() {
+        if (this.prevX === null) {
+            this.prevX = this.x;
+            return false;
+        } else if (this.prevX !== this.x) {
+            this.prevX = this.x;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //TODO Funktions Namen unbedingt ändern. Allgemein aufräumen
+
     update(deltaTime) {
+        console.log(this.hasXChanged(this));
         if (world.char.x > 6000 || this.trigger) {
             this.trigger = true;
             this.bossMovement(deltaTime);
@@ -69,19 +89,42 @@ class Boss extends MovableObject {
     checkPosition() {
         let positionDif = this.x - world.char.x;
         if (positionDif > -10 && positionDif < 10) {
-            this.startInterval(this.IMAGES_ALERT);
+            this.alertBoss();
+            this.attack();
         }
+    }
+
+    attack() {
+        if (!this.alerted && !this.hasXChanged) {
+            this.startInterval(this.IMAGES_ATTACK);
+        }
+    }
+
+    deadAnimation() {
+        this.startInterval(this.IMAGES_DEAD);
+        this.width -= 1;
+        this.height -= 1;
+        this.y += 1;
+    }
+
+    alertBoss() {
+        this.startInterval(this.IMAGES_ALERT);
+        this.alerted = true;
+        setTimeout(() => {
+            this.startInterval(this.IMAGES_WALK);
+            this.alerted = false;
+        }, 1600)
     }
 
     bossMovement(deltaTime) {
         let positionDif = this.x - world.char.x + 80;
         if (positionDif > 0) {
-            if (positionDif > 10) {
+            if (positionDif > 10 && !this.alerted) {
                 this.moveLeft(this.speed * deltaTime);
             }
             this.flipImage = false;
         } else if (positionDif < 0) {
-            if (positionDif < -10) {
+            if (positionDif < -10 && !this.alerted) {
                 this.moveRight(this.speed * deltaTime);
             }
             this.flipImage = true;

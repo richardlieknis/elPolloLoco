@@ -277,6 +277,10 @@ class Character extends MovableObject {
             this.jump();
 
         }
+        if (keyboard.EXTRA) {
+            this.x = 5500;
+
+        }
     }
 
     isInLevel(side) {

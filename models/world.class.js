@@ -21,8 +21,8 @@ class World {
     ]
 
     tumbleweeds = [
-        new Tumbleweed(1400, 10),
-        new Tumbleweed(2500, 8),
+        // new Tumbleweed(1400, 10),
+        // new Tumbleweed(2500, 8),
     ]
 
     bgObjDesert = [
