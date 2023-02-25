@@ -174,7 +174,6 @@ class Character extends MovableObject {
         if (this.pepeDead() && !this.isDead) {
             this.jump();
 
-
             let path = this.IMAGES_DEAD[this.currentImageD];
             this.img = this.imageCache[path];
             this.currentImageD++;

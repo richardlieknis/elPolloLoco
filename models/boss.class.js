@@ -42,6 +42,10 @@ class Boss extends MovableObject {
     constructor(speed) {
         super().loadImage('img/4_enemie_boss_chicken/1_walk/G1.png');
         this.loadImages(this.IMAGES_WALK);
+        this.loadImages(this.IMAGES_ALERT);
+        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.width = 1045 / scale / 2;
         this.height = 1217 / scale / 2;
         this.x = 6600;
@@ -50,6 +54,7 @@ class Boss extends MovableObject {
         this.dead = false;
         this.trigger = false;
 
+        this.intervalId;
         this.animation();
     }
 
@@ -57,26 +62,45 @@ class Boss extends MovableObject {
         if (world.char.x > 6000 || this.trigger) {
             this.trigger = true;
             this.bossMovement(deltaTime);
+            this.checkPosition();
+        }
+    }
+
+    checkPosition() {
+        let positionDif = this.x - world.char.x;
+        if (positionDif > -10 && positionDif < 10) {
+            this.startInterval(this.IMAGES_ALERT);
         }
     }
 
     bossMovement(deltaTime) {
-        let positionDif = this.x - world.char.x;
+        let positionDif = this.x - world.char.x + 80;
         if (positionDif > 0) {
-            this.moveLeft(this.speed * deltaTime);
+            if (positionDif > 10) {
+                this.moveLeft(this.speed * deltaTime);
+            }
             this.flipImage = false;
         } else if (positionDif < 0) {
-            this.moveRight(this.speed * deltaTime);
+            if (positionDif < -10) {
+                this.moveRight(this.speed * deltaTime);
+            }
             this.flipImage = true;
         }
     }
 
     animation() {
-        setInterval(() => {
-            let path = this.IMAGES_WALK[this.currentImage];
+        this.startInterval(this.IMAGES_WALK);
+        //this.startInterval(this.IMAGES_ALERT);
+    }
+
+    startInterval(images) {
+        this.currentImage = 0;
+        clearInterval(this.intervalId);
+        this.intervalId = setInterval(() => {
+            let path = images[this.currentImage];
             this.img = this.imageCache[path];
             this.currentImage++;
-            if (this.currentImage == this.IMAGES_WALK.length) {
+            if (this.currentImage == images.length) {
                 this.currentImage = 0;
             }
         }, 1000 / 5)
