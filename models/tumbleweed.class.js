@@ -16,6 +16,7 @@ class Tumbleweed extends MovableObject {
     }
 
     update(deltaTime) {
+
         this.x -= this.speed * deltaTime;
         this.checkOutOfLevel();
         this.addTumbleweedPhysics();
@@ -23,12 +24,18 @@ class Tumbleweed extends MovableObject {
     }
 
     reset() {
-        this.x = canvas.width * 4;
-        this.y = canvas.height - 250;
-        this.velocity = 0;
-        this.rotation = 1;
-        this.addTumbleweedPhysics();
-        this.speed = Math.floor(Math.random() * 6 + 14);
+        let randomTime = Math.floor(Math.random() * 5 + 1);
+
+        setTimeout(() => {
+            this.x = canvas.width * 4;
+            this.y = canvas.height - 250;
+            this.velocity = 0;
+            this.rotation = 1;
+            this.addTumbleweedPhysics();
+            this.speed = Math.floor(Math.random() * 6 + 14);
+        }, randomTime * 1000)
+
+
     }
 
 
@@ -43,8 +50,9 @@ class Tumbleweed extends MovableObject {
         this.velocity += this.gravity;
         this.y += this.velocity;
         if (this.y + this.height >= this.groundY) {
-            this.velocity = -this.velocity * 1.001;
+            this.velocity = -this.velocity * 1.03;
             this.y = this.groundY - this.height;
+            this.playAudioIfNearby(world.char);
         }
     }
 }

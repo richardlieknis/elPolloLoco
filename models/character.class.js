@@ -91,6 +91,8 @@ class Character extends MovableObject {
         this.jumpSound.volume = 0.5;
         this.hurtSound = new Audio('audio/hurt1.mp3');
         this.hurtSound.volume = 0.5;
+        this.hurtSound2 = new Audio('audio/hurt2.mp3');
+        this.hurtSound2.volume = 0.5;
         this.deadSound = new Audio('audio/hurt4.mp3');
         this.deadSound.volume = 0.5;
 
@@ -212,7 +214,7 @@ class Character extends MovableObject {
         let result = world.enemies.map(obj => this.checkCollision(obj));
         if (result.includes(true) && !this.jumping) {
             this.hit(5);
-            this.hurtSound.play();
+            this.randomizeHurtSound();
         }
         return result.includes(true);
     }
@@ -221,9 +223,16 @@ class Character extends MovableObject {
         let result = world.tumbleweeds.map(obj => this.checkCollision(obj));
         if (result.includes(true)) {
             this.hit(2);
-            this.hurtSound.play();
+            this.randomizeHurtSound();
         }
         return result.includes(true);
+    }
+
+    randomizeHurtSound() {
+        let randomNumber = Math.floor(Math.random() * 2);
+        if (randomNumber === 0) {
+            this.hurtSound.play();
+        } else this.hurtSound2.play();
     }
 
     jumpOnChicken(chicken) {
@@ -262,7 +271,6 @@ class Character extends MovableObject {
             this.flipImage = true;
             if (this.isInLevel("left")) {
                 this.moveLeft(this.speed * deltaTime);
-                console.log(deltaTime);
             }
         }
 

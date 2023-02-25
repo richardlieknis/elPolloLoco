@@ -20,6 +20,34 @@ class MovableObject {
     offsetY = 0;
     energy = 100;
 
+    // CHAT GPT Vorschlag
+
+    audio = new Audio("audio/tumbleweed3.mp3");
+    audioRadius = 800;
+
+    calculateDistance(character) {
+        const dx = this.x - character.x;
+        const dy = this.y - character.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    // check if the object is within the audio radius of the character
+    isWithinAudioRadius(character) {
+        const distance = this.calculateDistance(character);
+        return distance <= this.audioRadius;
+    }
+
+    // play the audio if the object is within the audio radius of the character
+    playAudioIfNearby(character) {
+        if (this.isWithinAudioRadius(character)) {
+
+            this.audio.volume = 0.2;
+            this.audio.play();
+        }
+    }
+
+    // Oben CHAT GPT Vorschlag
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
