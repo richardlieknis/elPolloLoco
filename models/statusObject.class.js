@@ -5,6 +5,7 @@ class StatusObject {
     height = 80;
     img;
     amount;
+    visible = true;
 
     loadImage(path) {
         this.img = new Image();
@@ -12,11 +13,13 @@ class StatusObject {
     }
 
     draw() {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-        ctx.font = "48px boogaloo";
-        ctx.fillStyle = "#fff";
-        ctx.fillText(this.amount, this.x + 80, 90);
-        ctx.strokeText(this.amount, this.x + 80, 90);
+        if (this.visible) {
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+            ctx.font = "48px boogaloo";
+            ctx.fillStyle = "#fff";
+            ctx.fillText(this.amount, this.x + 80, 90);
+            ctx.strokeText(this.amount, this.x + 80, 90);
+        }
     }
 
     update() {

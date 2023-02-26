@@ -20,7 +20,7 @@ class MovableObject {
     offsetY = 0;
     energy = 100;
 
-    // CHAT GPT Vorschlag
+    // CHAT GPT Vorschlag // NOTE GRAD NICHT SICHER OB ES BENUTZT WIRD
 
     audio = new Audio("audio/tumbleweed3.mp3");
     audioRadius = 800;

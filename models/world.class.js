@@ -73,6 +73,7 @@ class World {
 
     draw() {
         ctx.translate(this.camera_x, 0);
+
         this.drawParallaxBg(this.bgObjParallax, 0);
         this.drawParallaxBg(this.bgObjParallax2, canvas.width - 1);
         this.drawParallaxBg(this.bgObjParallax, canvas.width * 2 - 1);

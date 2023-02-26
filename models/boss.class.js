@@ -55,9 +55,11 @@ class Boss extends MovableObject {
         this.trigger = false;
 
         this.alerted = false;
-        this.attacking = false;
+        this.isAttacking = false;
+        this.isMoving = true;
 
         this.prevX = null;
+        this.globalAlert = false;
 
         this.intervalId;
         this.animation();
@@ -76,26 +78,40 @@ class Boss extends MovableObject {
     }
 
     //TODO Funktions Namen unbedingt ändern. Allgemein aufräumen
+    //NOTE - Wenn der Char stehen bleibt während der Boss alerted ist, werden keine Animationen abgespielt (vermutlich 2 gleichzeitige intervals)
 
     update(deltaTime) {
-        console.log(this.hasXChanged(this));
         if (world.char.x > 6000 || this.trigger) {
             this.trigger = true;
+            world.char.leftBounding = 5400;
+            world.statusObjects[3].visible = true;
             this.bossMovement(deltaTime);
-            this.checkPosition();
-        }
-    }
-
-    checkPosition() {
-        let positionDif = this.x - world.char.x;
-        if (positionDif > -10 && positionDif < 10) {
+            this.checkPositionWithChar();
+            this.checkIfMoves();
             this.alertBoss();
-            this.attack();
+            this.attackIfNear();
         }
     }
 
-    attack() {
-        if (!this.alerted && !this.hasXChanged) {
+    checkIfMoves() {
+        if (this.isMoving) {
+            this.isAttacking = false;
+            return true;
+        } else return false;
+    }
+
+
+    checkPositionWithChar() {
+        let positionDif = this.x - world.char.x;
+        if (positionDif > -20 && positionDif < 20) {
+            return true;
+        } else return false;
+    }
+
+    attackIfNear() {
+        if (!this.alerted && this.globalAlert && !this.isMoving && !this.isAttacking) {
+            console.log("Hallo");
+            this.isAttacking = true;
             this.startInterval(this.IMAGES_ATTACK);
         }
     }
@@ -108,27 +124,42 @@ class Boss extends MovableObject {
     }
 
     alertBoss() {
-        this.startInterval(this.IMAGES_ALERT);
-        this.alerted = true;
-        setTimeout(() => {
-            this.startInterval(this.IMAGES_WALK);
-            this.alerted = false;
-        }, 1600)
+        if (!this.globalAlert && this.checkPositionWithChar() || !this.globalAlert && this.x <= 5900) {
+            this.startInterval(this.IMAGES_ALERT);
+            this.alerted = true;
+            this.globalAlert = true;
+            setTimeout(() => {
+                this.startInterval(this.IMAGES_WALK);
+                this.alerted = false;
+            }, 1600)
+        }
     }
 
     bossMovement(deltaTime) {
         let positionDif = this.x - world.char.x + 80;
         if (positionDif > 0) {
-            if (positionDif > 10 && !this.alerted) {
+            if (positionDif > 5 && !this.alerted) {
                 this.moveLeft(this.speed * deltaTime);
-            }
+                this.isMoving = true;
+            } else this.isMoving = false;
             this.flipImage = false;
         } else if (positionDif < 0) {
-            if (positionDif < -10 && !this.alerted) {
+            if (positionDif < -5 && !this.alerted) {
                 this.moveRight(this.speed * deltaTime);
-            }
+                this.isMoving = true; // NOTE Als letztes isMoving eingefügt. Noch keine Stelle für isMoving = false! Sollte fürs WALK dienen
+                //NOTE Idee - HilfsFunktionen für Position Difference machen!
+            } else this.isMoving = false;
             this.flipImage = true;
         }
+    }
+
+    positionDiference(a, b) {
+        let positionDif;
+        let pos1 = a;
+        let pos2 = b;
+
+
+
     }
 
     animation() {

@@ -72,6 +72,7 @@ class Character extends MovableObject {
         this.x = 1;
         this.y = canvas.height - this.height - 70;
         this.speed = speed;
+        this.leftBounding = -50;
 
         this.walkInVal;
         this.jumpInVal;
@@ -286,7 +287,7 @@ class Character extends MovableObject {
     isInLevel(side) {
         switch (side) {
             case "left":
-                if (this.x > -50) {
+                if (this.x > this.leftBounding) {
                     return true;
                 } else return false;
             case "right":
@@ -299,7 +300,7 @@ class Character extends MovableObject {
     }
 
     moveCamera() {
-        if (this.x > 200 && this.x < world.end) {
+        if (this.x > 200 && this.x < world.end && !world.boss.trigger) {
             world.camera_x = -this.x + 200;
         }
     }
