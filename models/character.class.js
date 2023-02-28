@@ -239,6 +239,7 @@ class Character extends MovableObject {
         if (this.checkCollision(chicken) && this.jumping && this.speedY < 0 && !this.pepeDead()) {
             chicken.clearAllIntervals();
             chicken.img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
+            chicken.deadSound.play();
             chicken.speed = 0;
             setTimeout(() => {
                 chicken.x = -300;
@@ -279,7 +280,7 @@ class Character extends MovableObject {
 
         }
         if (keyboard.EXTRA) {
-            this.x = 5500;
+            this.x = 4200;
 
         }
     }

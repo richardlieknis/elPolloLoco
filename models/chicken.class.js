@@ -21,6 +21,8 @@ class Chicken extends MovableObject {
         this.testInv;
 
         this.IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
+        this.deadSound = new Audio('audio/chickenHurt2.mp3');
+        this.deadSound.volume = 0.3;
 
         this.animation();
     }

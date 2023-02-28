@@ -48,7 +48,7 @@ class Boss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.width = 1045 / scale / 2;
         this.height = 1217 / scale / 2;
-        this.x = 6600;
+        this.x = canvas.width * 5;
         this.y = canvas.height - this.height - 50;
         this.speed = speed;
         this.dead = false;
@@ -63,6 +63,10 @@ class Boss extends MovableObject {
 
         this.intervalId;
         this.animation();
+
+        this.bossMusic = new Audio('audio/boss.mp3');
+        this.bossMusic.volume = 0.4;
+
     }
 
     hasXChanged() {
@@ -81,10 +85,11 @@ class Boss extends MovableObject {
     //NOTE - Wenn der Char stehen bleibt während der Boss alerted ist, werden keine Animationen abgespielt (vermutlich 2 gleichzeitige intervals)
 
     update(deltaTime) {
-        if (world.char.x > 6000 || this.trigger) {
+        if (world.char.x > 4800 || this.trigger) {
             this.trigger = true;
-            world.char.leftBounding = 5400;
+            world.char.leftBounding = 4250;
             world.statusObjects[3].visible = true;
+            this.bossMusic.play();
             this.bossMovement(deltaTime);
             this.checkPositionWithChar();
             this.checkIfMoves();
@@ -124,7 +129,7 @@ class Boss extends MovableObject {
     }
 
     alertBoss() {
-        if (!this.globalAlert && this.checkPositionWithChar() || !this.globalAlert && this.x <= 5900) {
+        if (!this.globalAlert && this.checkPositionWithChar() || !this.globalAlert && this.x <= 4800) {
             this.startInterval(this.IMAGES_ALERT);
             this.alerted = true;
             this.globalAlert = true;

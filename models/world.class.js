@@ -53,6 +53,14 @@ class World {
         new BossEnergy(),
     ];
 
+    collectableObjects = [
+        new Wrap(550, 200, true),
+        new Wrap(800, 250, true),
+        new Wrap(1650, 230, true),
+        new Wrap(1200, 230, true),
+        new Wrap(1250, 200, true),
+    ]
+
     bottles = [];
 
 
@@ -60,7 +68,7 @@ class World {
     constructor(keyboard) {
         this.keyboard = keyboard;
         this.camera_x = 0;
-        this.end = canvas.width * 5;
+        this.end = canvas.width * 4;
         this.world = this;
 
         this.ambientSound = new Audio("audio/desert.wav");
@@ -88,6 +96,8 @@ class World {
         this.addObjectsToWorld(this.tumbleweeds);
         this.addObjectsToWorld(this.enemies);
         this.addObjectsToWorld(this.bottles);
+        this.addObjectsToWorld(this.collectableObjects);
+
 
         ctx.translate(-this.camera_x, 0);
     }
