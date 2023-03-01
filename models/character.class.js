@@ -106,7 +106,7 @@ class Character extends MovableObject {
     }
 
     update(keyboard, deltaTime) {
-        this.collectItems();
+        this.checkItemsAndCollect();
         this.checkAllChickens();
         if (!this.pepeDead()) {
             this.addControls(keyboard, deltaTime);
@@ -220,9 +220,11 @@ class Character extends MovableObject {
         return result.includes(true);
     }
 
-    collectItems() {
+    checkItemsAndCollect() {
         let result = world.collectableObjects.map(obj => this.checkCollision(obj));
-        console.log(result);
+        if (result.indexOf(true) >= 0) {
+            world.collectableObjects[result.indexOf(true)].collectItem();
+        }
     }
 
     isHurtByTumbleweed() {
