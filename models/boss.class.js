@@ -48,7 +48,7 @@ class Boss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.width = 1045 / scale / 2;
         this.height = 1217 / scale / 2;
-        this.x = canvas.width * 5;
+        this.x = canvas.width * 5 - 200;
         this.y = canvas.height - this.height - 50;
         this.speed = speed;
         this.dead = false;
@@ -64,8 +64,8 @@ class Boss extends MovableObject {
         this.intervalId;
         this.animation();
 
-        this.bossMusic = new Audio('audio/boss.mp3');
-        this.bossMusic.volume = 0.4;
+        this.bossMusic = new Audio('audio/bossfight.wav');
+        this.bossMusic.volume = 0.15;
 
     }
 
@@ -95,6 +95,7 @@ class Boss extends MovableObject {
             this.checkIfMoves();
             this.alertBoss();
             this.attackIfNear();
+            document.getElementById("darkOverlay").classList.remove('d-none');
         }
     }
 
@@ -129,7 +130,7 @@ class Boss extends MovableObject {
     }
 
     alertBoss() {
-        if (!this.globalAlert && this.checkPositionWithChar() || !this.globalAlert && this.x <= 4800) {
+        if (!this.globalAlert && this.checkPositionWithChar() || !this.globalAlert && this.x <= 5100) {
             this.startInterval(this.IMAGES_ALERT);
             this.alerted = true;
             this.globalAlert = true;

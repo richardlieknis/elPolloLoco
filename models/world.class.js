@@ -55,10 +55,15 @@ class World {
 
     collectableObjects = [
         new Wrap(550, 200, true),
-        new Wrap(800, 250, true),
-        new Wrap(1650, 230, true),
-        new Wrap(1200, 230, true),
-        new Wrap(1250, 200, true),
+        new Wrap(800, 200, true),
+        new Wrap(1050, 200, true),
+        new Wrap(1300, 200, true),
+        new Wrap(1550, 200, true),
+        new Bottle(650, 300, true),
+        new Bottle(900, 300, true),
+        new Bottle(1200, 300, true),
+        new Bottle(1400, 300, true),
+        new Bottle(1650, 300, true),
     ]
 
     bottles = [];

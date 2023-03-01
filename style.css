@@ -13,6 +13,10 @@ body {
     object-fit: fill;
 }
 
+.d-none {
+    display: none;
+}
+
 main {
     display: flex;
     justify-content: center;
@@ -23,9 +27,34 @@ main {
 }
 
 canvas {
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     border-radius: 3%;
     cursor: cell;
+}
+
+.canvasContainer {
+    position: relative;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#darkOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 99.5%;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 3%;
+    cursor: cell;
+    animation: fadeIn 3s ease-in-out;
 }
 
 h1 {
