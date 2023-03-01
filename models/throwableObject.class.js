@@ -82,4 +82,12 @@ class ThrowableObject extends MovableObject {
             }
         }
     }
+
+    addCollisionRect() {
+        ctx.beginPath();
+        ctx.lineWidth = "2";
+        ctx.strokeStyle = "red";
+        ctx.rect(this.x + 30, this.y, this.width - 70, this.height);
+        ctx.stroke();
+    }
 }

@@ -33,4 +33,12 @@ class StatusObject {
     update() {
         //this.amount = world.char.energy;
     }
+
+    addCollisionRect() {
+        ctx.beginPath();
+        ctx.lineWidth = "2";
+        ctx.strokeStyle = "red";
+        ctx.rect(this.x + 30, this.y, this.width - 70, this.height);
+        ctx.stroke();
+    }
 }

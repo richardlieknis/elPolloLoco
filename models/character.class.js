@@ -106,6 +106,7 @@ class Character extends MovableObject {
     }
 
     update(keyboard, deltaTime) {
+        this.collectItems();
         this.checkAllChickens();
         if (!this.pepeDead()) {
             this.addControls(keyboard, deltaTime);
@@ -217,6 +218,11 @@ class Character extends MovableObject {
             this.randomizeHurtSound();
         }
         return result.includes(true);
+    }
+
+    collectItems() {
+        let result = world.collectableObjects.map(obj => this.checkCollision(obj));
+        console.log(result);
     }
 
     isHurtByTumbleweed() {

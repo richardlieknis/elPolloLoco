@@ -83,16 +83,23 @@ class MovableObject {
             ctx.beginPath();
             ctx.lineWidth = "2";
             ctx.strokeStyle = "blue";
-            ctx.rect(this.x + 30, this.y, this.width - 70, this.height);
+            ctx.rect(this.x + 30, this.y + 180, this.width - 70, this.height - 190);
             ctx.stroke();
         }
     }
 
     checkCollision(obj) {
-        return (this.x + 30 + this.width - 70) >= (obj.x + 30) &&
-            (this.x + 30) <= (obj.x + 30 + obj.width - 70) &&
-            (this.y + this.height) >= obj.y &&
-            (this.y) <= (obj.y + obj.height)
+        if (this instanceof Character) {
+            return (this.x + 30 + this.width - 70) >= (obj.x + 30) &&
+                (this.x + 30) <= (obj.x + 30 + obj.width - 70) &&
+                (this.y + 180 + this.height - 190) >= obj.y &&
+                (this.y + 180) <= (obj.y + obj.height)
+        } else if (this instanceof ThrowableObject) {
+            return (this.x + 30 + this.width - 70) >= (obj.x + 30) &&
+                (this.x + 30) <= (obj.x + 30 + obj.width - 70) &&
+                (this.y + this.height) >= obj.y &&
+                (this.y) <= (obj.y + obj.height)
+        }
     }
 
 
