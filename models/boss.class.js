@@ -55,7 +55,9 @@ class Boss extends MovableObject {
         this.trigger = false;
 
         this.alerted = false;
-        this.isAttacking = false;
+        this.isAttacking = false
+        this.moveTrigger = false;
+        this.isSliding = false;
         this.isMoving = true;
 
         this.prevX = null;
@@ -95,6 +97,10 @@ class Boss extends MovableObject {
             this.alertBoss();
             this.attackIfNear();
             document.getElementById("darkOverlay").classList.remove('d-none');
+
+            if (this.globalAlert) {
+                this.randomSlideToChar();
+            }
         }
     }
 
@@ -115,9 +121,16 @@ class Boss extends MovableObject {
 
     attackIfNear() {
         if (!this.alerted && this.globalAlert && !this.isMoving && !this.isAttacking) {
-            console.log("Hallo");
             this.isAttacking = true;
+            this.moveTrigger = false;
             this.startInterval(this.IMAGES_ATTACK);
+        }
+
+        if (this.isAttacking && world.char.energy > 0) {
+            setTimeout(() => {
+                world.char.hit(0.2);
+                world.char.randomizeHurtSound();
+            }, 600)
         }
     }
 
@@ -126,6 +139,18 @@ class Boss extends MovableObject {
         this.width -= 1;
         this.height -= 1;
         this.y += 1;
+    }
+
+    randomSlideToChar() {
+        let randomNumb = Math.floor(Math.random() * 550);
+
+        if (randomNumb === 10 && !this.isSliding) {
+            world.boss.speed = 10;
+            this.isSliding = true;
+            setTimeout(() => {
+                this.isSliding = false;
+            }, 500)
+        } else if (!this.isSliding) { world.boss.speed = 1.5; }
     }
 
     alertBoss() {
@@ -140,18 +165,27 @@ class Boss extends MovableObject {
         }
     }
 
+    walkingAnimation() {
+        if (!this.moveTrigger) {
+            this.startInterval(this.IMAGES_WALK);
+            this.moveTrigger = true;
+        }
+    }
+
     bossMovement(deltaTime) {
         let positionDif = this.x - world.char.x + 80;
         if (positionDif > 0) {
-            if (positionDif > 5 && !this.alerted) {
+            if (positionDif > 80 && !this.alerted) {
                 this.moveLeft(this.speed * deltaTime);
                 this.isMoving = true;
+                this.walkingAnimation();
             } else this.isMoving = false;
             this.flipImage = false;
         } else if (positionDif < 0) {
-            if (positionDif < -5 && !this.alerted) {
+            if (positionDif < -80 && !this.alerted) {
                 this.moveRight(this.speed * deltaTime);
-                this.isMoving = true; // NOTE Als letztes isMoving eingefügt. Noch keine Stelle für isMoving = false! Sollte fürs WALK dienen
+                this.isMoving = true;
+                this.walkingAnimation(); // NOTE Als letztes isMoving eingefügt. Noch keine Stelle für isMoving = false! Sollte fürs WALK dienen
                 //NOTE Idee - HilfsFunktionen für Position Difference machen!
             } else this.isMoving = false;
             this.flipImage = true;

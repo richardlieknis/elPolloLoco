@@ -39,13 +39,24 @@ class ThrowableObject extends MovableObject {
 
     update() {
         this.checkCollisionWithEnemies();
+        this.collisionWithEndboss();
     }
 
     checkCollisionWithEnemies() {
-        world.enemies.map(obj => this.killEnemyWithBottle(obj));
+        world.enemies.map(obj => this.killChicken(obj));
     }
 
     killEnemyWithBottle(chicken) {
+        this.killChicken(chicken);
+    }
+
+    collisionWithEndboss() {
+        if (this.checkCollision(world.boss)) {
+            return true;
+        } else return false;
+    }
+
+    killChicken(chicken) {
         if (this.checkCollision(chicken)) {
             chicken.clearAllIntervals();
             chicken.img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
@@ -57,16 +68,13 @@ class ThrowableObject extends MovableObject {
             clearInterval(this.throwInterval);
             if (this.splashed === false) {
                 this.breakSound.play();
-                d
                 this.startInterval(this.IMAGES_SPLASH);
                 this.splashed = true;
             }
-
-
+            // Place broken Bottle on x = 10000
             setTimeout(() => {
                 this.x = 10000;
             }, 500)
-
         }
     }
 

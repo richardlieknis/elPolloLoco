@@ -28,7 +28,8 @@ class Chicken extends MovableObject {
     }
 
     update(deltaTime) {
-        this.moveLeft(this.speed * deltaTime);
+        //this.moveLeft(this.speed * deltaTime);
+        this.moveUpToChar(deltaTime);
     }
 
     animation() {
@@ -45,6 +46,21 @@ class Chicken extends MovableObject {
     clearAllIntervals() {
         let allIntervals = [this.testInv];
         allIntervals.forEach(clearInterval);
+    }
+
+    moveUpToChar(deltaTime) {
+        let positionDif = this.x - world.char.x;
+        if (positionDif > 0) {
+            if (positionDif > 1 && !this.alerted) {
+                this.moveLeft(this.speed * deltaTime);
+            }
+            this.flipImage = false;
+        } else if (positionDif < 0) {
+            if (positionDif < -1 && !this.alerted) {
+                this.moveRight(this.speed * deltaTime);
+            }
+            this.flipImage = true;
+        }
     }
 
 }

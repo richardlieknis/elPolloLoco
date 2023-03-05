@@ -25,15 +25,17 @@ class StatusObject {
                 ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
                 ctx.font = "48px boogaloo";
                 ctx.fillStyle = "#fff";
-                ctx.fillText(this.amount, this.x + 80, 90);
-                ctx.strokeText(this.amount, this.x + 80, 90);
+                ctx.fillText(Math.floor(this.amount), this.x + 80, 90);
+                ctx.strokeText(Math.floor(this.amount), this.x + 80, 90);
             }
         }
         ctx.restore();
     }
 
     update() {
-        //this.amount = world.char.energy;
+        if (world.statusObjects[0].amount <= 0) {
+            world.statusObjects[0].amount = 0;
+        }
     }
 
 
