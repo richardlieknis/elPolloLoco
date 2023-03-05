@@ -19,6 +19,7 @@ class MovableObject {
     jumping = false;
     offsetY = 0;
     energy = 100;
+    intervalId;
 
     // CHAT GPT Vorschlag // NOTE GRAD NICHT SICHER OB ES BENUTZT WIRD
 
@@ -59,6 +60,20 @@ class MovableObject {
             img.src = path;
             this.imageCache[path] = img;
         });
+    }
+
+
+    startInterval(images) {
+        this.currentImage = 0;
+        clearInterval(this.intervalId);
+        this.intervalId = setInterval(() => {
+            let path = images[this.currentImage];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+            if (this.currentImage == images.length) {
+                this.currentImage = 0;
+            }
+        }, 1000 / 5)
     }
 
     draw() {
@@ -105,7 +120,7 @@ class MovableObject {
 
     addPhysics() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
+            if ((this.isAboveGround() || this.speedY > 0) && !this.splashed) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -113,11 +128,11 @@ class MovableObject {
     }
 
     isAboveGround() {
-        // if (this instanceof ThrowableObject) {
-        //     return true;
-        // } else {
-        return this.y < canvas.height - this.height - 70;
-        //}
+        if (this instanceof ThrowableObject) {
+            return true;
+        } else {
+            return this.y < canvas.height - this.height - 70;
+        }
     }
 
     isOnGround() {

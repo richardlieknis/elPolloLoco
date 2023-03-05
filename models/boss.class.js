@@ -61,7 +61,6 @@ class Boss extends MovableObject {
         this.prevX = null;
         this.globalAlert = false;
 
-        this.intervalId;
         this.animation();
 
         this.bossMusic = new Audio('audio/bossfight.wav');
@@ -163,27 +162,10 @@ class Boss extends MovableObject {
         let positionDif;
         let pos1 = a;
         let pos2 = b;
-
-
-
     }
 
     animation() {
         this.startInterval(this.IMAGES_WALK);
-        //this.startInterval(this.IMAGES_ALERT);
-    }
-
-    startInterval(images) {
-        this.currentImage = 0;
-        clearInterval(this.intervalId);
-        this.intervalId = setInterval(() => {
-            let path = images[this.currentImage];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-            if (this.currentImage == images.length) {
-                this.currentImage = 0;
-            }
-        }, 1000 / 5)
     }
 
 }

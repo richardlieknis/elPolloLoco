@@ -27,27 +27,18 @@ class ThrowableObject extends MovableObject {
         this.width = 400 / 3 / scale;
         this.height = 400 / 3 / scale;
 
-        this.test = true;
+        this.throwInterval;
+        this.splashed = false;
 
-        this.animation();
+        this.startInterval(this.IMAGES_THROW);
         this.throw(x, y);
+
+        this.breakSound = new Audio("audio/bottleBreak.mp3");
+        this.breakSound.volume = 0.3;
     }
 
     update() {
         this.checkCollisionWithEnemies();
-    }
-
-    animation() {
-        setInterval(() => {
-            if (this.test) {
-                let path = this.IMAGES_THROW[this.currentImageB];
-                this.img = this.imageCache[path];
-                this.currentImageB++;
-                if (this.currentImageB == this.IMAGES_THROW.length) {
-                    this.currentImageB = 0;
-                }
-            }
-        }, 1000 / 10);
     }
 
     checkCollisionWithEnemies() {
@@ -63,25 +54,38 @@ class ThrowableObject extends MovableObject {
                 chicken.x = -300;
                 chicken.y = -300;
             }, 500);
-            this.speedY = 0;
-            this.x = 10000;
+            clearInterval(this.throwInterval);
+            if (this.splashed === false) {
+                this.breakSound.play();
+                d
+                this.startInterval(this.IMAGES_SPLASH);
+                this.splashed = true;
+            }
+
+
+            setTimeout(() => {
+                this.x = 10000;
+            }, 500)
+
         }
     }
 
     throw (x, y) {
-        if (!world.char.isDead) {
+        if (!world.char.isDead && world.statusObjects[2].amount > 0) {
+            world.statusObjects[2].amount -= 1;
             this.addPhysics();
             this.y = y;
             this.speedY = 30;
             if (!world.char.flipImage) {
                 this.x = x;
-                setInterval(() => this.x += 12, 25);
+                this.throwInterval = setInterval(() => this.x += 10, 25);
             } else {
                 this.x = x - 70;
-                setInterval(() => this.x += -12, 25);
+                this.throwInterval = setInterval(() => this.x += -10, 25);
             }
         }
     }
+
 
     addCollisionRect() {
         ctx.beginPath();
