@@ -52,7 +52,17 @@ class ThrowableObject extends MovableObject {
 
     collisionWithEndboss() {
         if (this.checkCollision(world.boss)) {
-            return true;
+            world.boss.hit(0.05);
+            clearInterval(this.throwInterval);
+            if (this.splashed === false) {
+                this.breakSound.play();
+                this.startInterval(this.IMAGES_SPLASH);
+                this.splashed = true;
+            }
+            // Place broken Bottle on x = 10000
+            setTimeout(() => {
+                this.x = 10000;
+            }, 500)
         } else return false;
     }
 

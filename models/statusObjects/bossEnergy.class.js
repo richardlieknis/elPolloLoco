@@ -5,4 +5,8 @@ class BossEnergy extends StatusObject {
         this.amount = 100;
         this.visible = false;
     }
+
+    update() {
+        this.amount = world.boss.energy;
+    }
 }

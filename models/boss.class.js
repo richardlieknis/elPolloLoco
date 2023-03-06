@@ -57,6 +57,7 @@ class Boss extends MovableObject {
         this.alerted = false;
         this.isAttacking = false
         this.moveTrigger = false;
+        this.isDead = false;
         this.isSliding = false;
         this.isMoving = true;
 
@@ -96,6 +97,7 @@ class Boss extends MovableObject {
             this.checkIfMoves();
             this.alertBoss();
             this.attackIfNear();
+            this.deadAnimation();
             document.getElementById("darkOverlay").classList.remove('d-none');
 
             if (this.globalAlert) {
@@ -120,7 +122,7 @@ class Boss extends MovableObject {
     }
 
     attackIfNear() {
-        if (!this.alerted && this.globalAlert && !this.isMoving && !this.isAttacking) {
+        if (!this.alerted && this.globalAlert && !this.isMoving && !this.isAttacking && !this.isDead) {
             this.isAttacking = true;
             this.moveTrigger = false;
             this.startInterval(this.IMAGES_ATTACK);
@@ -135,10 +137,15 @@ class Boss extends MovableObject {
     }
 
     deadAnimation() {
-        this.startInterval(this.IMAGES_DEAD);
-        this.width -= 1;
-        this.height -= 1;
-        this.y += 1;
+        if (this.bossDead() && !this.isDead) {
+            this.isDead = true;
+            this.startInterval(this.IMAGES_DEAD);
+        } else if (this.bossDead()) {
+            this.width += 1;
+            this.height += 1;
+            this.y -= 2;
+            this.x -= 2;
+        }
     }
 
     randomSlideToChar() {
@@ -154,7 +161,7 @@ class Boss extends MovableObject {
     }
 
     alertBoss() {
-        if (!this.globalAlert && this.checkPositionWithChar() || !this.globalAlert && this.x <= 5100) {
+        if ((!this.globalAlert && this.checkPositionWithChar() || !this.globalAlert && this.x <= 5100) && !this.isDead) {
             this.startInterval(this.IMAGES_ALERT);
             this.alerted = true;
             this.globalAlert = true;
@@ -174,14 +181,14 @@ class Boss extends MovableObject {
 
     bossMovement(deltaTime) {
         let positionDif = this.x - world.char.x + 80;
-        if (positionDif > 0) {
+        if (positionDif > 0 && !this.isDead) {
             if (positionDif > 80 && !this.alerted) {
                 this.moveLeft(this.speed * deltaTime);
                 this.isMoving = true;
                 this.walkingAnimation();
             } else this.isMoving = false;
             this.flipImage = false;
-        } else if (positionDif < 0) {
+        } else if (positionDif < 0 && !this.isDead) {
             if (positionDif < -80 && !this.alerted) {
                 this.moveRight(this.speed * deltaTime);
                 this.isMoving = true;
@@ -190,6 +197,10 @@ class Boss extends MovableObject {
             } else this.isMoving = false;
             this.flipImage = true;
         }
+    }
+
+    bossDead() {
+        return this.energy <= 0;
     }
 
     positionDiference(a, b) {
