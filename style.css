@@ -57,6 +57,19 @@ canvas {
     animation: fadeIn 3s ease-in-out;
 }
 
+#gameoverOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(img/9_intro_outro_screens/game_over/gameover1.png);
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 99.5%;
+    border-radius: 3%;
+    cursor: cell;
+    animation: fadeIn 3s ease-in-out;
+}
+
 h1 {
     font-family: 'boots';
     font-size: 48px;

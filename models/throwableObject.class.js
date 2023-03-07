@@ -39,7 +39,7 @@ class ThrowableObject extends MovableObject {
 
     update() {
         this.checkCollisionWithEnemies();
-        this.collisionWithEndboss();
+        this.damageEndboss();
     }
 
     checkCollisionWithEnemies() {
@@ -50,9 +50,9 @@ class ThrowableObject extends MovableObject {
         this.killChicken(chicken);
     }
 
-    collisionWithEndboss() {
+    damageEndboss() {
         if (this.checkCollision(world.boss)) {
-            world.boss.hit(0.05);
+            world.boss.hit(0.15);
             clearInterval(this.throwInterval);
             if (this.splashed === false) {
                 this.breakSound.play();

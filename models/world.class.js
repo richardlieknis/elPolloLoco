@@ -1,17 +1,9 @@
 class World {
     char = new Character(3);
-    enemies = [
-        new Chicken(1.2),
-        new Chicken(0.5),
-        new Chicken(0.8),
-        new Chicken(1.3),
-        new Chicken(0.9),
-        new Chicken(0.3),
-        new Chicken(0.4)
-    ];
-
     boss = new Boss(1);
-
+    enemies = [];
+    collectableObjects = [];
+    bottles = [];
     clouds = [
         new Cloud(0.08),
         new Cloud(0.1),
@@ -21,8 +13,8 @@ class World {
     ]
 
     tumbleweeds = [
-        // new Tumbleweed(1400, 10),
-        // new Tumbleweed(2500, 8),
+        new Tumbleweed(1400, 10),
+        new Tumbleweed(2500, 8),
     ]
 
     bgObjDesert = [
@@ -53,23 +45,6 @@ class World {
         new BossEnergy(),
     ];
 
-    collectableObjects = [
-        new Wrap(550, 200, true),
-        new Wrap(800, 200, true),
-        new Wrap(1050, 200, true),
-        new Wrap(1300, 200, true),
-        new Wrap(1550, 200, true),
-        new Bottle(650, 300, true),
-        new Bottle(900, 300, true),
-        new Bottle(1200, 300, true),
-        new Bottle(1400, 300, true),
-        new Bottle(1650, 300, true),
-    ]
-
-    bottles = [];
-
-
-
     constructor(keyboard) {
         this.keyboard = keyboard;
         this.camera_x = 0;
@@ -81,6 +56,13 @@ class World {
         this.ambientSound.volume = 0.2;
         this.ambientSound.loop = true;
         this.ambientSound.autoplay = true;
+
+        this.gameWonSound = new Audio("audio/win.mp3");
+        this.gameWonSound.volume = 0.3;
+        this.gameLostSound = new Audio("audio/lose.mp3");
+        this.gameLostSound.volume = 0.3;
+
+        this.gameover = false;
 
     }
 
@@ -121,6 +103,7 @@ class World {
     }
 
     update(deltaTime) {
+        this.checkIfBossIsDead();
         this.draw();
         this.drawStatus();
         this.char.update(this.keyboard, deltaTime);
@@ -143,6 +126,22 @@ class World {
 
         this.checkThrowObjects();
 
+    }
+
+    checkIfBossIsDead() {
+        if (this.boss.isDead || this.char.isDead) {
+            this.gameover = true;
+            this.boss.bossMusic.pause();
+            this.gameWonSound.play();
+            setTimeout(() => {
+                GAME_RUNNING = false;
+                this.char.clearAllIntervals();
+                this.char.walkSound.pause();
+                document.getElementById("gameoverOverlay").classList.remove('d-none');
+                return true;
+            }, 2500);
+
+        }
     }
 
     checkThrowObjects() {

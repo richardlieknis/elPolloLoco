@@ -91,7 +91,9 @@ class Boss extends MovableObject {
             this.trigger = true;
             world.char.leftBounding = 4250;
             world.statusObjects[3].visible = true;
-            this.bossMusic.play();
+            if (!this.isDead) {
+                this.bossMusic.play();
+            }
             this.bossMovement(deltaTime);
             this.checkPositionWithChar();
             this.checkIfMoves();
@@ -104,6 +106,7 @@ class Boss extends MovableObject {
                 this.randomSlideToChar();
             }
         }
+
     }
 
     checkIfMoves() {
@@ -128,7 +131,7 @@ class Boss extends MovableObject {
             this.startInterval(this.IMAGES_ATTACK);
         }
 
-        if (this.isAttacking && world.char.energy > 0) {
+        if (this.isAttacking && world.char.energy > 0 && !this.isDead) {
             setTimeout(() => {
                 world.char.hit(0.2);
                 world.char.randomizeHurtSound();

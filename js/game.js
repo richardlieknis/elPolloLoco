@@ -1,22 +1,44 @@
 let world;
 let keyboard = new Keyboard();
 let lastTime = performance.now();
+let mouseTrigger = false;
+let GAME_RUNNING = true;
 
 function init() {
     world = new World(keyboard);
     world.draw();
+    generateCollectables();
+    generateChickens();
     gameLoop();
 }
 
 function gameLoop() {
-    let currentTime = performance.now();
-    let deltaTime = (currentTime - lastTime) / 20;
+    if (GAME_RUNNING) {
+        let currentTime = performance.now();
+        let deltaTime = (currentTime - lastTime) / 20;
 
-    clearCanvas();
-    world.update(deltaTime);
+        clearCanvas();
+        world.update(deltaTime);
 
-    lastTime = currentTime;
+        lastTime = currentTime;
+
+    }
     requestAnimationFrame(gameLoop);
+}
+
+function generateCollectables() {
+    for (let i = 0; i < 20; i++) {
+        world.collectableObjects.push(new Bottle(200 * i + 500, 250, true));
+        world.collectableObjects.push(new Wrap(200 * i + 400, 150, true));
+    }
+}
+
+function generateChickens() {
+    for (let i = 0; i < 20; i++) {
+        let randomNumber = Math.floor(Math.random() * 400 + 100);
+        world.enemies.push(new Chicken(i * randomNumber + 1500, 1));
+
+    }
 }
 
 window.addEventListener("keydown", (e) => {
@@ -49,10 +71,19 @@ window.addEventListener("keyup", (e) => {
     }
 });
 
-window.addEventListener("click", (e) => {
-    keyboard.THROW = true;
-    setTimeout(() => {
-        keyboard.THROW = false;
-    }, 8);
+window.addEventListener("mousedown", (e) => {
+    if (mouseTrigger === false) {
+        mouseTrigger = true;
+        keyboard.THROW = true;
+        setTimeout(() => {
+            keyboard.THROW = false;
+        }, 6.5);
+        setTimeout(() => {
+            mouseTrigger = false;
+        }, 500)
+    }
+});
 
-})
+window.addEventListener("mouseup", (e) => {
+    keyboard.THROW = false;
+});
