@@ -70,7 +70,6 @@ function generateChickens() {
     for (let i = 0; i < 25; i++) {
         let randomNumbPos = Math.floor(Math.random() * 400 + 100);
         let randomNumbSpeed = Math.random() * 2 + 0.8;
-        console.log(randomNumbSpeed);
         world.enemies.push(new Chicken(i * randomNumbPos + 1500, randomNumbSpeed));
     }
 }

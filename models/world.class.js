@@ -101,7 +101,6 @@ class World {
 
     update(deltaTime) {
         this.checkIfBossIsDead();
-        this.checkIfPepeIsDead();
         this.draw();
         this.drawStatus();
         this.char.update(this.keyboard, deltaTime);
