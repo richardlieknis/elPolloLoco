@@ -51,7 +51,7 @@ class World {
         this.end = canvas.width * 4;
         this.world = this;
 
-        this.ambientSound = new Audio("audio/desert.wav");
+        this.ambientSound = new Audio("audio/desert.mp3");
         this.ambientSound.play();
         this.ambientSound.volume = 0.2;
         this.ambientSound.loop = true;
@@ -133,15 +133,23 @@ class World {
             this.gameover = true;
             this.boss.bossMusic.pause();
             this.gameWonSound.play();
-            setTimeout(() => {
-                GAME_RUNNING = false;
-                this.char.clearAllIntervals();
-                this.char.walkSound.pause();
-                document.getElementById("gameoverOverlay").classList.remove('d-none');
-                return true;
-            }, 2500);
-
+            this.showGameoverOverlay();
+            return true;
         }
+    }
+
+
+    showGameoverOverlay() {
+        let gameOver = document.getElementById("gameoverOverlay");
+        let gameOverImg = document.getElementById("gameOverImg");
+        setTimeout(() => {
+            GAME_RUNNING = false;
+            this.char.clearAllIntervals();
+            this.char.walkSound.pause();
+            gameOverImg.width = canvas.width;
+            gameOverImg.height = canvas.height;
+            gameOver.classList.remove('d-none');
+        }, 2500);
     }
 
     checkThrowObjects() {

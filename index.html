@@ -35,7 +35,55 @@
             <canvas id="canvas"></canvas>
             <div id="darkOverlay" class="d-none"></div>
             <div id="gameoverOverlay" class="d-none">
+                <img id="gameOverImg" class="imgOverlay" src="img/9_intro_outro_screens/game_over/game over.png">
+                <img id="restartBtn" src="img/10_overlay_icons/restart1.png" onclick="restartGame()">
             </div>
+            <div id="startOverlay" class="d-none">
+                <img id="startImg" class="imgOverlay" src="img/9_intro_outro_screens/start/startscreen_1.png">
+                <img id="startBtn" src="img/10_overlay_icons/start1.png" onclick="startGame()">
+            </div>
+            <div id="optionsOverlay">
+                <img src="img/10_overlay_icons/padBtn.png" onclick="showControlsOverlay()">
+            </div>
+            <div id="mobileControls">
+                <div class="left">
+                    <img src="img/10_overlay_icons/leftBtn.png" id="leftBtn" onclick="mobileLeftBtn()">
+                    <img src="img/10_overlay_icons/rightBtn.png" id="rightBtn" onclick="mobileRightBtn()">
+                </div>
+                <div class="right">
+                    <img src="img/10_overlay_icons/bottleBtn.png" id="throwBtn" onclick="mobileThrowBtn()">
+                    <img src="img/10_overlay_icons/jumpBtn.png" id="jumpBtn" onclick="mobileJumpBtn()">
+                </div>
+            </div>
+            <div id="showControlsOverlay" class="d-none">
+                <h2>Controls and Story</h2>
+                <div class="closeBtn" onclick="closeControlsOverlay()">
+                    <img width="20px" src="img/10_overlay_icons/close.png">
+                </div>
+                <div class="showControlsContainer">
+                    <div class="controls">
+                        <div>
+                            <img src="img/10_overlay_icons/a_icon.png">Move Left
+                        </div>
+                        <div>
+                            <img src="img/10_overlay_icons/d_icon.png">Move Right
+                        </div>
+                        <div>
+                            <img src="img/10_overlay_icons/space_icon.png">Jump
+                        </div>
+                        <div>
+                            <img src="img/10_overlay_icons/mouse_icon.png">Throw Bottle
+                        </div>
+                    </div>
+                    <div class="story">
+                        El Pollo Loco is a game where you get to live out your wildest chicken-killing fantasies! As a brave warrior armed with nothing but a few bottles to throw, you must fight your way through hordes of evil chickens to take down the dreaded end boss. These
+                        chickens are no pushovers - they're tough, fast, and more than a little bit crazy! But don't worry, with your lightning-fast reflexes and killer bottle-throwing skills, you're more than a match for them. So get ready to show those
+                        chickens who's boss and save the village from their feathered tyranny!</div>
+                </div>
+            </div>
+        </div>
+        <div id="flipDisplayOverlay">
+            <h2>Flip your Display 90°</h2>
         </div>
     </main>
     <script src="js/canvas.js"></script>

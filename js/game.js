@@ -5,11 +5,26 @@ let mouseTrigger = false;
 let GAME_RUNNING = true;
 
 function init() {
+    showStartOverlay();
+}
+
+function startGame() {
+    document.getElementById("startOverlay").classList.add('d-none');
     world = new World(keyboard);
     world.draw();
     generateCollectables();
     generateChickens();
     gameLoop();
+}
+
+function restartGame() {
+    document.getElementById("gameoverOverlay").classList.add("d-none");
+    document.getElementById("darkOverlay").classList.add("d-none");
+    world.gameWonSound.pause();
+    GAME_RUNNING = true;
+    world = new World(keyboard);
+    generateCollectables();
+    generateChickens();
 }
 
 function gameLoop() {
@@ -21,25 +36,88 @@ function gameLoop() {
         world.update(deltaTime);
 
         lastTime = currentTime;
-
     }
     requestAnimationFrame(gameLoop);
 }
 
+function showControlsOverlay() {
+    let controlsOverlay = document.getElementById("showControlsOverlay");
+    controlsOverlay.classList.remove('d-none');
+}
+
+function closeControlsOverlay() {
+    let controlsOverlay = document.getElementById("showControlsOverlay");
+    controlsOverlay.classList.add('d-none');
+}
+
+function showStartOverlay() {
+    let startOverlay = document.getElementById("startOverlay");
+    let startImg = document.getElementById("startImg");
+
+    startImg.width = canvas.width;
+    startImg.height = canvas.height;
+    startOverlay.classList.remove('d-none');
+}
+
 function generateCollectables() {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 23; i++) {
         world.collectableObjects.push(new Bottle(200 * i + 500, 250, true));
         world.collectableObjects.push(new Wrap(200 * i + 400, 150, true));
     }
 }
 
 function generateChickens() {
-    for (let i = 0; i < 20; i++) {
-        let randomNumber = Math.floor(Math.random() * 400 + 100);
-        world.enemies.push(new Chicken(i * randomNumber + 1500, 1));
-
+    for (let i = 0; i < 25; i++) {
+        let randomNumbPos = Math.floor(Math.random() * 400 + 100);
+        let randomNumbSpeed = Math.random() * 2 + 0.8;
+        console.log(randomNumbSpeed);
+        world.enemies.push(new Chicken(i * randomNumbPos + 1500, randomNumbSpeed));
     }
 }
+
+function mobileJumpBtn() {
+    document.getElementById('jumpBtn').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.JUMP = true;
+    });
+    document.getElementById('jumpBtn').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.JUMP = false;
+    });
+};
+
+function mobileThrowBtn() {
+    document.getElementById('throwBtn').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.THROW = true;
+    });
+    document.getElementById('throwBtn').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.THROW = false;
+    });
+};
+
+function mobileRightBtn() {
+    document.getElementById('rightBtn').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+    document.getElementById('rightBtn').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+};
+
+function mobileLeftBtn() {
+    document.getElementById('leftBtn').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+    document.getElementById('leftBtn').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+};
 
 window.addEventListener("keydown", (e) => {
     if (e.keyCode === 65) {
@@ -80,7 +158,7 @@ window.addEventListener("mousedown", (e) => {
         }, 6.5);
         setTimeout(() => {
             mouseTrigger = false;
-        }, 500)
+        }, 1000)
     }
 });
 

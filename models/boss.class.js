@@ -91,7 +91,7 @@ class Boss extends MovableObject {
             this.trigger = true;
             world.char.leftBounding = 4250;
             world.statusObjects[3].visible = true;
-            if (!this.isDead) {
+            if (!this.isDead && !world.char.isDead) {
                 this.bossMusic.play();
             }
             this.bossMovement(deltaTime);
