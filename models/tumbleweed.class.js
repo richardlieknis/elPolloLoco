@@ -1,8 +1,6 @@
 class Tumbleweed extends MovableObject {
-
     constructor(x, speed) {
         super().loadImage('img/tumbleweed.png');
-        // this.x = Math.random() * canvas.width * 4;
         this.x = x;
         this.y = canvas.height - 250;
         this.width = 952 / scale / 5;
@@ -16,7 +14,6 @@ class Tumbleweed extends MovableObject {
     }
 
     update(deltaTime) {
-
         this.x -= this.speed * deltaTime;
         this.checkOutOfLevel();
         this.addTumbleweedPhysics();
@@ -25,7 +22,6 @@ class Tumbleweed extends MovableObject {
 
     reset() {
         let randomTime = Math.floor(Math.random() * 5 + 1);
-
         setTimeout(() => {
             this.x = canvas.width * 6;
             this.y = canvas.height - 250;
@@ -34,11 +30,7 @@ class Tumbleweed extends MovableObject {
             this.addTumbleweedPhysics();
             this.speed = Math.floor(Math.random() * 6 + 14);
         }, randomTime * 1000)
-
-
     }
-
-
 
     checkOutOfLevel() {
         if (this.x + this.width < 0) {

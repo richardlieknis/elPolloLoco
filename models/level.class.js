@@ -1,5 +1,3 @@
-// AKTUELL UNGENUTZT + NICHT IM INDEX
-
 class Level {
     enemies;
     clouds;

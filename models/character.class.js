@@ -15,24 +15,6 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/idle/I-4.png',
         'img/2_character_pepe/1_idle/idle/I-5.png',
         'img/2_character_pepe/1_idle/idle/I-6.png',
-        // 'img/2_character_pepe/1_idle/idle/I-7.png',
-        // 'img/2_character_pepe/1_idle/idle/I-8.png',
-        // 'img/2_character_pepe/1_idle/idle/I-9.png',
-        // 'img/2_character_pepe/1_idle/idle/I-10.png',
-        //TODO - Die Bilder müssen in playImages() so geladen, dass es immer bei 0 anfängt!
-    ];
-
-    IMAGES_LONGIDLE = [
-        'img/2_character_pepe/1_idle/long_idle/I-11.png',
-        'img/2_character_pepe/1_idle/long_idle/I-12.png',
-        'img/2_character_pepe/1_idle/long_idle/I-13.png',
-        'img/2_character_pepe/1_idle/long_idle/I-14.png',
-        'img/2_character_pepe/1_idle/long_idle/I-15.png',
-        'img/2_character_pepe/1_idle/long_idle/I-16.png',
-        'img/2_character_pepe/1_idle/long_idle/I-17.png',
-        'img/2_character_pepe/1_idle/long_idle/I-18.png',
-        'img/2_character_pepe/1_idle/long_idle/I-19.png',
-        'img/2_character_pepe/1_idle/long_idle/I-20.png',
     ];
 
     IMAGES_JUMP = [
@@ -97,7 +79,6 @@ class Character extends MovableObject {
         this.deadSound = new Audio('audio/hurt4.mp3');
         this.deadSound.volume = 0.5;
 
-
         this.hasPlayed = false;
 
         this.animation();
@@ -117,7 +98,6 @@ class Character extends MovableObject {
             this.currentImageJ = 0;
             this.y = canvas.height - this.height - 70;
         }
-
     }
 
     animation() {
@@ -167,7 +147,7 @@ class Character extends MovableObject {
 
     hurtAnimation() {
         if ((this.isHurt() || this.isHurtByTumbleweed()) && !this.isDead) {
-            this.currentImage = 0; //TODO - Sollte nur einmal ausgeführt werden
+            this.currentImage = 0;
             this.playImages(this.IMAGES_HURT);
         }
     }
@@ -175,7 +155,6 @@ class Character extends MovableObject {
     deadAnimation() {
         if (this.pepeDead() && !this.isDead) {
             this.jump();
-
             let path = this.IMAGES_DEAD[this.currentImageD];
             this.img = this.imageCache[path];
             this.currentImageD++;
@@ -184,8 +163,6 @@ class Character extends MovableObject {
                 this.isDead = true;
                 this.deadSound.play();
                 this.clearAllIntervals();
-                //TODO - DeadSound muss anfang des Intervals sein und ein einziges mal abspielen!
-                //TODO - Andere stelle für clearInterval und Sound finden!
             }
         }
     }
@@ -230,7 +207,7 @@ class Character extends MovableObject {
     isHurtByTumbleweed() {
         let result = world.tumbleweeds.map(obj => this.checkCollision(obj));
         if (result.includes(true)) {
-            this.hit(2);
+            this.hit(4);
             this.randomizeHurtSound();
         }
         return result.includes(true);
@@ -273,7 +250,6 @@ class Character extends MovableObject {
         if (!keyboard.RIGHT && !keyboard.LEFT && !keyboard.jump) {
             this.idle = true; //TODO - Sollte auch auf  true gesetzt werden, wenn nichts passiert
         }
-
         if (keyboard.LEFT) {
             this.moveCamera();
             this.idle = false;
@@ -282,14 +258,11 @@ class Character extends MovableObject {
                 this.moveLeft(this.speed * deltaTime);
             }
         }
-
         if (keyboard.JUMP) {
             this.jump();
-
         }
         if (keyboard.EXTRA) {
-            this.x = 4200;
-
+            //this.x = 4200;
         }
     }
 

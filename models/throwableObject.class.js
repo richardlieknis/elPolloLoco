@@ -59,7 +59,6 @@ class ThrowableObject extends MovableObject {
                 this.startInterval(this.IMAGES_SPLASH);
                 this.splashed = true;
             }
-            // Place broken Bottle on x = 10000
             setTimeout(() => {
                 this.x = 10000;
             }, 500)
@@ -81,7 +80,6 @@ class ThrowableObject extends MovableObject {
                 this.startInterval(this.IMAGES_SPLASH);
                 this.splashed = true;
             }
-            // Place broken Bottle on x = 10000
             setTimeout(() => {
                 this.x = 10000;
             }, 500)
@@ -103,7 +101,6 @@ class ThrowableObject extends MovableObject {
             }
         }
     }
-
 
     addCollisionRect() {
         ctx.beginPath();

@@ -21,8 +21,6 @@ class MovableObject {
     energy = 100;
     intervalId;
 
-    // CHAT GPT Vorschlag // NOTE GRAD NICHT SICHER OB ES BENUTZT WIRD
-
     audio = new Audio("audio/tumbleweed3.mp3");
     audioRadius = 800;
 
@@ -32,13 +30,11 @@ class MovableObject {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    // check if the object is within the audio radius of the character
     isWithinAudioRadius(character) {
         const distance = this.calculateDistance(character);
         return distance <= this.audioRadius;
     }
 
-    // play the audio if the object is within the audio radius of the character
     playAudioIfNearby(character) {
         if (this.isWithinAudioRadius(character)) {
 
@@ -46,8 +42,6 @@ class MovableObject {
             this.audio.play();
         }
     }
-
-    // Oben CHAT GPT Vorschlag
 
     loadImage(path) {
         this.img = new Image();
@@ -61,7 +55,6 @@ class MovableObject {
             this.imageCache[path] = img;
         });
     }
-
 
     startInterval(images) {
         this.currentImage = 0;
@@ -116,7 +109,6 @@ class MovableObject {
                 (this.y) <= (obj.y + obj.height)
         }
     }
-
 
     addPhysics() {
         setInterval(() => {

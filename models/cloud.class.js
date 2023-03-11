@@ -15,7 +15,7 @@ class Cloud extends MovableObject {
 
     checkOutOfLevel() {
         if (this.x + this.width < 0) {
-            this.x = canvas.width * 4;
+            this.x = canvas.width * 5;
         }
     }
 }

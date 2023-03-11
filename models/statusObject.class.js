@@ -38,7 +38,6 @@ class StatusObject {
         }
     }
 
-
     addCollisionRect() {
         ctx.beginPath();
         ctx.lineWidth = "2";
@@ -48,7 +47,6 @@ class StatusObject {
     }
 
     collectItem() {
-
         if (this instanceof Wrap) {
             world.statusObjects[1].amount += 1;
         }

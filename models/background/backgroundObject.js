@@ -7,9 +7,4 @@ class backgroundObject extends MovableObject {
         this.height = 1080 / scale;
         this.parallaxSpeed = parallaxSpeed;
     }
-
-
-    update() {
-
-    }
 }

@@ -152,7 +152,7 @@ class Boss extends MovableObject {
     }
 
     randomSlideToChar() {
-        let randomNumb = Math.floor(Math.random() * 550);
+        let randomNumb = Math.floor(Math.random() * 500);
 
         if (randomNumb === 10 && !this.isSliding) {
             world.boss.speed = 10;

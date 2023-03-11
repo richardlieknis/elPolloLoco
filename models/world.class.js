@@ -59,8 +59,6 @@ class World {
 
         this.gameWonSound = new Audio("audio/win.mp3");
         this.gameWonSound.volume = 0.3;
-        this.gameLostSound = new Audio("audio/lose.mp3");
-        this.gameLostSound.volume = 0.3;
 
         this.gameover = false;
 
@@ -85,7 +83,6 @@ class World {
         this.addObjectsToWorld(this.bottles);
         this.addObjectsToWorld(this.collectableObjects);
 
-
         ctx.translate(-this.camera_x, 0);
     }
 
@@ -104,6 +101,7 @@ class World {
 
     update(deltaTime) {
         this.checkIfBossIsDead();
+        this.checkIfPepeIsDead();
         this.draw();
         this.drawStatus();
         this.char.update(this.keyboard, deltaTime);
@@ -125,7 +123,6 @@ class World {
         });
 
         this.checkThrowObjects();
-
     }
 
     checkIfBossIsDead() {
@@ -137,7 +134,6 @@ class World {
             return true;
         }
     }
-
 
     showGameoverOverlay() {
         let gameOver = document.getElementById("gameoverOverlay");
@@ -167,7 +163,6 @@ class World {
 
     addObjectToWorld(object) {
         //object.addCollisionRect();
-
         if (object.flipImage) {
             ctx.save();
             ctx.translate(object.width, 0);
@@ -180,7 +175,4 @@ class World {
             ctx.restore();
         }
     }
-
-
-
 }
