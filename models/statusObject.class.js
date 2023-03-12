@@ -49,7 +49,9 @@ class StatusObject {
     collectItem() {
         if (this instanceof Wrap) {
             world.statusObjects[1].amount += 1;
-            world.char.energy += 3;
+            if (world.char.energy < 100) {
+                world.char.energy += 3;
+            }
         }
         if (this instanceof Bottle) {
             world.statusObjects[2].amount += 1;
