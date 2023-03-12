@@ -1,5 +1,5 @@
 class World {
-    char = new Character(3);
+    char = new Character(4);
     boss = new Boss(1);
     enemies = [];
     collectableObjects = [];
@@ -53,12 +53,12 @@ class World {
 
         this.ambientSound = new Audio("audio/desert.mp3");
         this.ambientSound.play();
-        this.ambientSound.volume = 0.2;
+        this.ambientSound.volume = 0.3;
         this.ambientSound.loop = true;
         this.ambientSound.autoplay = true;
 
         this.gameWonSound = new Audio("audio/win.mp3");
-        this.gameWonSound.volume = 0.3;
+        this.gameWonSound.volume = 0.1;
 
         this.gameover = false;
 

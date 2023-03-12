@@ -67,7 +67,7 @@ class Boss extends MovableObject {
         this.animation();
 
         this.bossMusic = new Audio('audio/bossfight.wav');
-        this.bossMusic.volume = 0.15;
+        this.bossMusic.volume = 0.05;
 
     }
 
@@ -82,9 +82,6 @@ class Boss extends MovableObject {
             return false;
         }
     }
-
-    //TODO Funktions Namen unbedingt ändern. Allgemein aufräumen
-    //NOTE - Wenn der Char stehen bleibt während der Boss alerted ist, werden keine Animationen abgespielt (vermutlich 2 gleichzeitige intervals)
 
     update(deltaTime) {
         if (world.char.x > 4800 || this.trigger) {
