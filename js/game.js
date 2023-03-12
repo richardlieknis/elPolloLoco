@@ -2,13 +2,14 @@ let world;
 let keyboard = new Keyboard();
 let lastTime = performance.now();
 let mouseTrigger = false;
-let GAME_RUNNING = true;
+let GAME_RUNNING = false;
 
 function init() {
     showStartOverlay();
 }
 
 function startGame() {
+    GAME_RUNNING = true;
     document.getElementById("startOverlay").classList.add('d-none');
     world = new World(keyboard);
     world.draw();
