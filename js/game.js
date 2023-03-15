@@ -11,7 +11,7 @@ function init() {
 function startGame() {
     GAME_RUNNING = true;
     document.getElementById("startOverlay").classList.add('d-none');
-    world = new World(keyboard);
+    world = new World(keyboard, GAME_RUNNING);
     world.draw();
     generateCollectables();
     generateChickens();
@@ -19,23 +19,21 @@ function startGame() {
 }
 
 function restartGame() {
+    GAME_RUNNING = true;
     document.getElementById("gameoverOverlay").classList.add("d-none");
     document.getElementById("darkOverlay").classList.add("d-none");
     world.gameWonSound.pause();
-    GAME_RUNNING = true;
     world = new World(keyboard);
     generateCollectables();
-    generateChickens();
+    world.generateChickens();
 }
 
 function gameLoop() {
     if (GAME_RUNNING) {
         let currentTime = performance.now();
         let deltaTime = (currentTime - lastTime) / 20;
-
         clearCanvas();
         world.update(deltaTime);
-
         lastTime = currentTime;
     }
     requestAnimationFrame(gameLoop);
@@ -74,6 +72,7 @@ function generateChickens() {
         world.enemies.push(new Chicken(i * randomNumbPos + 1500, randomNumbSpeed));
     }
 }
+
 
 function mobileJumpBtn() {
     document.getElementById('jumpBtn').addEventListener('touchstart', (e) => {

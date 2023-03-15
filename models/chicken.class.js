@@ -39,6 +39,8 @@ class Chicken extends MovableObject {
         }, 1000 / 10)
     }
 
+
+
     clearAllIntervals() {
         let allIntervals = [this.testInv];
         allIntervals.forEach(clearInterval);

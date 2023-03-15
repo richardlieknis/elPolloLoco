@@ -45,11 +45,13 @@ class World {
         new BossEnergy(),
     ];
 
-    constructor(keyboard) {
+    constructor(keyboard, GAME_RUNNING) {
         this.keyboard = keyboard;
         this.camera_x = 0;
         this.end = canvas.width * 4;
         this.world = this;
+
+        this.GAME_RUNNING = GAME_RUNNING;
 
         this.ambientSound = new Audio("audio/desert.mp3");
         this.ambientSound.play();
@@ -61,6 +63,7 @@ class World {
         this.gameWonSound.volume = 0.1;
 
         this.gameover = false;
+        this.gameoverTimeout;
 
     }
 
@@ -137,10 +140,13 @@ class World {
     showGameoverOverlay() {
         let gameOver = document.getElementById("gameoverOverlay");
         let gameOverImg = document.getElementById("gameOverImg");
-        setTimeout(() => {
+        let restartBtn = document.getElementById("restartBtn");
+
+        this.gameoverTimeout = setTimeout(() => {
             GAME_RUNNING = false;
             this.char.clearAllIntervals();
             this.char.walkSound.pause();
+            restartBtn.classList.remove('d-none');
             gameOverImg.width = canvas.width;
             gameOverImg.height = canvas.height;
             gameOver.classList.remove('d-none');
