@@ -24,8 +24,9 @@ function restartGame() {
     document.getElementById("darkOverlay").classList.add("d-none");
     world.gameWonSound.pause();
     world = new World(keyboard);
+    world.enemies = [];
     generateCollectables();
-    world.generateChickens();
+    generateChickens();
 }
 
 function gameLoop() {
@@ -33,7 +34,7 @@ function gameLoop() {
         let currentTime = performance.now();
         let deltaTime = (currentTime - lastTime) / 20;
         clearCanvas();
-        world.update(deltaTime);
+        world.update(deltaTime, GAME_RUNNING);
         lastTime = currentTime;
     }
     requestAnimationFrame(gameLoop);

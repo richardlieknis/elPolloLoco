@@ -102,7 +102,8 @@ class World {
         }
     }
 
-    update(deltaTime) {
+    update(deltaTime, GAME_RUNNING) {
+        console.log(GAME_RUNNING);
         this.checkIfBossIsDead();
         this.draw();
         this.drawStatus();
@@ -115,7 +116,7 @@ class World {
             obj.update(deltaTime);
         });
         this.enemies.forEach(obj => {
-            obj.update(deltaTime);
+            obj.update(deltaTime, GAME_RUNNING);
         });
         this.statusObjects.forEach(obj => {
             obj.update(deltaTime);

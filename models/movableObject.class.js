@@ -17,6 +17,7 @@ class MovableObject {
     currentImageIL = 0;
     flipImage = false;
     jumping = false;
+    GAME_RUNNING = false;
     offsetY = 0;
     energy = 100;
     intervalId;
@@ -132,7 +133,14 @@ class MovableObject {
     }
 
     moveLeft(speed) {
-        this.x -= speed;
+        console.log(world.char.x);
+        if (this instanceof Chicken && world.char.x != 1) {
+            this.x -= speed;
+        }
+
+        if (this instanceof Character) {
+            this.x -= speed
+        }
     }
 
     moveRight(speed) {
