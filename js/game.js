@@ -124,6 +124,55 @@ function changeSoundForNewBottles() {
     }
 }
 
+function setFullscreen() {
+    let isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+        (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+        (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+        (document.msFullscreenElement && document.msFullscreenElement !== null);
+
+    let docElm = document.getElementById('canvasContainer');
+    if (!isInFullScreen) {
+        openFullscreen(docElm);
+    } else {
+        exitFullscreen(docElm);
+    }
+}
+
+function openFullscreen(docElm) {
+    document.getElementById('canvas').classList.add('style-fullscreen');
+    document.getElementById('startImg').style.width = "100%";
+    document.getElementById('startImg').style.height = "100vh";
+    document.getElementById('gameOverImg').style.width = "100%";
+    document.getElementById('gameOverImg').style.height = "100vh";
+    document.getElementById('youLostImg').style.width = "100%";
+    document.getElementById('youLostImg').style.height = "100vh";
+    if (docElm.requestFullscreen) {
+        docElm.requestFullscreen();
+    } else if (docElm.mozRequestFullScreen) {
+        docElm.mozRequestFullScreen();
+    } else if (docElm.webkitRequestFullScreen) {
+        docElm.webkitRequestFullScreen();
+    } else if (docElm.msRequestFullscreen) {
+        docElm.msRequestFullscreen();
+    }
+}
+
+function exitFullscreen() {
+    document.getElementById('canvas').classList.remove('style-fullscreen');
+    document.getElementById('startImg').style.height = null;
+    document.getElementById('gameOverImg').style.height = null;
+    document.getElementById('youLostImg').style.height = null;
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+}
+
 function showControlsOverlay() {
     let controlsOverlay = document.getElementById("showControlsOverlay");
     controlsOverlay.classList.remove('d-none');
@@ -210,6 +259,12 @@ function mobileLeftBtn() {
     });
 };
 
+function closeFullscreen() {
+    document.getElementById('startImg').style.height = null;
+    document.getElementById('gameOverImg').style.height = null;
+    document.getElementById('youLostImg').style.height = null;
+}
+
 window.addEventListener("keydown", (e) => {
     if (e.keyCode === 65) {
         keyboard.LEFT = true;
@@ -222,6 +277,9 @@ window.addEventListener("keydown", (e) => {
     }
     if (e.keyCode === 69) {
         keyboard.THROW = true;
+    }
+    if (e.keyCode === 27) {
+        closeFullscreen();
     }
 });
 

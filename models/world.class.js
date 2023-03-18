@@ -162,8 +162,6 @@ class World {
     showWinOrLoose(state) {
         let gameOver = document.getElementById("gameoverOverlay");
         let gameOverImg = document.getElementById("gameOverImg");
-        console.log(state);
-
         if (state === "won") {
             gameOverImg.width = canvas.width;
             gameOverImg.height = canvas.height;

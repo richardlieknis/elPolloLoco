@@ -128,7 +128,6 @@ class MovableObject {
     }
 
     isOnGround() {
-        //console.log(this.speedY);
         return (this.speedY <= -29)
     }
 

@@ -25,7 +25,8 @@ class Chicken extends MovableObject {
     }
 
     update(deltaTime) {
-        this.moveUpToChar(deltaTime);
+        this.moveLeft(this.speed * deltaTime);
+        //this.moveUpToChar(deltaTime);
     }
 
     animation() {

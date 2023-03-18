@@ -31,7 +31,7 @@
 <body onload="init()">
     <main>
         <h1>El Pollo Loco</h1>
-        <div class="canvasContainer">
+        <div class="canvasContainer" id="canvasContainer">
             <canvas id="canvas"></canvas>
             <div id="darkOverlay" class="d-none"></div>
             <div id="gameoverOverlay" class="d-none">
@@ -44,6 +44,7 @@
                 <img id="startBtn" src="img/10_overlay_icons/start1.png" onclick="startGame()">
             </div>
             <div id="optionsOverlay">
+                <img src="img/10_overlay_icons/fullBtn.png" onclick="setFullscreen()">
                 <img id="volumeBtn" class="d-none" src="img/10_overlay_icons/volumeBtn.png" onclick="changeSound()">
                 <img src="img/10_overlay_icons/padBtn.png" onclick="showControlsOverlay()">
             </div>
