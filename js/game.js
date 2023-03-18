@@ -18,6 +18,7 @@ function gameLoop() {
         world.update(deltaTime, GAME_RUNNING);
         lastTime = currentTime;
         changeSoundForNewBottles();
+
     }
     requestAnimationFrame(gameLoop);
 }
@@ -141,11 +142,11 @@ function setFullscreen() {
 function openFullscreen(docElm) {
     document.getElementById('canvas').classList.add('style-fullscreen');
     document.getElementById('startImg').style.width = "100%";
-    document.getElementById('startImg').style.height = "100vh";
+    document.getElementById('startImg').style.height = "auto";
     document.getElementById('gameOverImg').style.width = "100%";
-    document.getElementById('gameOverImg').style.height = "100vh";
+    document.getElementById('gameOverImg').style.height = "auto";
     document.getElementById('youLostImg').style.width = "100%";
-    document.getElementById('youLostImg').style.height = "100vh";
+    document.getElementById('youLostImg').style.height = "auto";
     if (docElm.requestFullscreen) {
         docElm.requestFullscreen();
     } else if (docElm.mozRequestFullScreen) {
@@ -259,12 +260,6 @@ function mobileLeftBtn() {
     });
 };
 
-function closeFullscreen() {
-    document.getElementById('startImg').style.height = null;
-    document.getElementById('gameOverImg').style.height = null;
-    document.getElementById('youLostImg').style.height = null;
-}
-
 window.addEventListener("keydown", (e) => {
     if (e.keyCode === 65) {
         keyboard.LEFT = true;
@@ -277,9 +272,6 @@ window.addEventListener("keydown", (e) => {
     }
     if (e.keyCode === 69) {
         keyboard.THROW = true;
-    }
-    if (e.keyCode === 27) {
-        closeFullscreen();
     }
 });
 
