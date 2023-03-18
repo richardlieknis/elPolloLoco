@@ -23,6 +23,7 @@ class MovableObject {
 
     audio = new Audio("audio/tumbleweed3.mp3");
     audioRadius = 800;
+    breakSound = new Audio("audio/bottleBreak.mp3");
 
     calculateDistance(character) {
         const dx = this.x - character.x;

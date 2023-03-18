@@ -3,6 +3,7 @@ let keyboard = new Keyboard();
 let lastTime = performance.now();
 let mouseTrigger = false;
 let soundTrigger = false;
+let savedSoundOpt = true;
 let GAME_RUNNING = false;
 
 function init() {
@@ -12,6 +13,7 @@ function init() {
 function startGame() {
     GAME_RUNNING = true;
     document.getElementById("startOverlay").classList.add('d-none');
+    document.getElementById("volumeBtn").classList.remove('d-none');
     world = new World(keyboard, GAME_RUNNING);
     world.draw();
     generateCollectables();
@@ -28,6 +30,7 @@ function restartGame() {
     world = new World(keyboard);
     generateCollectables();
     generateChickens();
+    loadCurrentSoundOption();
 }
 
 function changeSound() {
@@ -39,6 +42,7 @@ function changeSound() {
         setAllTumbleweedSounds(true);
         setAllBottleSounds(true);
         soundTrigger = true;
+        savedSoundOpt = false;
         volumeBtn.src = "img/10_overlay_icons/muteBtn.png";
     } else if (soundTrigger) {
         setAllSounds(false);
@@ -47,8 +51,19 @@ function changeSound() {
         setAllTumbleweedSounds(false);
         setAllBottleSounds(false);
         soundTrigger = false;
+        savedSoundOpt = true;
         volumeBtn.src = "img/10_overlay_icons/volumeBtn.png";
     }
+    console.log(soundTrigger);
+}
+
+function loadCurrentSoundOption() {
+    if (savedSoundOpt === true) {
+        soundTrigger = true;
+    } else if (savedSoundOpt === false) {
+        soundTrigger = false;
+    }
+    changeSound();
 }
 
 function setAllSounds(boolean) {
@@ -87,6 +102,15 @@ function setAllBottleSounds(boolean) {
     })
 }
 
+function changeSoundForNewBottles() {
+    if (savedSoundOpt === true) {
+        setAllBottleSounds(false);
+    }
+    if (savedSoundOpt === false) {
+        setAllBottleSounds(true);
+    }
+}
+
 function gameLoop() {
     if (GAME_RUNNING) {
         let currentTime = performance.now();
@@ -94,6 +118,7 @@ function gameLoop() {
         clearCanvas();
         world.update(deltaTime, GAME_RUNNING);
         lastTime = currentTime;
+        changeSoundForNewBottles();
     }
     requestAnimationFrame(gameLoop);
 }
@@ -121,6 +146,13 @@ function generateCollectables() {
     for (let i = 0; i < 23; i++) {
         world.collectableObjects.push(new Bottle(200 * i + 500, 250, true));
         world.collectableObjects.push(new Wrap(200 * i + 400, 150, true));
+    }
+    for (let i = 0; i < 5; i++) {
+        world.collectableObjects.push(new Wrap(5300, 150, true));
+        world.collectableObjects.push(new Bottle(5300, 250, true));
+    }
+    for (let i = 0; i < 4; i++) {
+        world.collectableObjects.push(new Wrap(i * 1000 + 1500, 50, true));
     }
 }
 
@@ -188,7 +220,7 @@ window.addEventListener("keydown", (e) => {
         keyboard.JUMP = true;
     }
     if (e.keyCode === 69) {
-        keyboard.EXTRA = true;
+        keyboard.THROW = true;
     }
 });
 
@@ -203,7 +235,7 @@ window.addEventListener("keyup", (e) => {
         keyboard.JUMP = false;
     }
     if (e.keyCode === 69) {
-        keyboard.EXTRA = false;
+        keyboard.THROW = false;
     }
 });
 

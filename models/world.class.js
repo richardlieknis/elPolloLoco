@@ -51,6 +51,8 @@ class World {
         this.end = canvas.width * 4;
         this.world = this;
 
+        this.isThrown = false;
+
         this.ambientSound = new Audio("audio/desert.mp3");
         this.ambientSound.play();
         this.ambientSound.volume = 0.3;
@@ -154,9 +156,13 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.THROW) {
+        if (this.keyboard.THROW && !this.isThrown) {
+            this.isThrown = true;
             let bottle = new ThrowableObject(this.char.x + 90, this.char.y + 180);
             this.bottles.push(bottle);
+            setTimeout(() => {
+                this.isThrown = false;
+            }, 1000);
         }
     }
 

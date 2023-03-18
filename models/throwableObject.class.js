@@ -33,7 +33,6 @@ class ThrowableObject extends MovableObject {
         this.startInterval(this.IMAGES_THROW);
         this.throw(x, y);
 
-        this.breakSound = new Audio("audio/bottleBreak.mp3");
         this.breakSound.volume = 0.3;
     }
 
