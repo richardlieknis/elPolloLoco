@@ -45,7 +45,7 @@ class World {
         new BossEnergy(),
     ];
 
-    constructor(keyboard, GAME_RUNNING) {
+    constructor(keyboard) {
         this.keyboard = keyboard;
         this.camera_x = 0;
         this.end = canvas.width * 4;
@@ -62,7 +62,8 @@ class World {
         this.gameWonSound = new Audio("audio/win.mp3");
         this.gameWonSound.volume = 0.1;
         this.gameLooseSound = new Audio("audio/lose.mp3");
-        this.gameLooseSound.volume = 0.1;
+        this.gameLooseSound.volume = 0.3;
+        this.gameLooseSound.loop = false;
 
         this.gameover = false;
     }
@@ -103,7 +104,7 @@ class World {
     }
 
     update(deltaTime) {
-        this.checkIfBossIsDead();
+        this.checkIfGameIsOver();
         this.draw();
         this.drawStatus();
         this.char.update(this.keyboard, deltaTime);
@@ -127,32 +128,54 @@ class World {
         this.checkThrowObjects();
     }
 
-    checkIfBossIsDead() {
-        if (this.boss.isDead || this.char.isDead) {
+    checkIfGameIsOver() {
+        if (this.boss.isDead) {
             this.gameover = true;
             this.boss.bossMusic.pause();
             this.gameWonSound.play();
-            this.showGameoverOverlay();
-            return true;
+            this.showGameoverOverlay("won");
+        } else if (this.char.isDead) {
+            this.gameover = true;
+            this.boss.bossMusic.pause();
+            this.gameLooseSound.play();
+            this.showGameoverOverlay("lost");
         }
     }
 
-    showGameoverOverlay() {
-        let gameOver = document.getElementById("gameoverOverlay");
-        let gameOverImg = document.getElementById("gameOverImg");
+    showGameoverOverlay(state) {
         let restartBtn = document.getElementById("restartBtn");
-
         setTimeout(() => {
             GAME_RUNNING = false;
             this.char.clearAllIntervals();
             this.char.walkSound.pause();
-            gameOverImg.width = canvas.width;
-            gameOverImg.height = canvas.height;
-            gameOver.classList.remove('d-none');
+            if (state === "won") {
+                this.showWinOrLoose("won");
+            } else if (state === "lost") {
+                this.showWinOrLoose("lost")
+            }
             setTimeout(() => {
                 restartBtn.classList.remove('d-none');
             }, 2500)
         }, 2000);
+    }
+
+    showWinOrLoose(state) {
+        let gameOver = document.getElementById("gameoverOverlay");
+        let gameOverImg = document.getElementById("gameOverImg");
+        console.log(state);
+
+        if (state === "won") {
+            gameOverImg.width = canvas.width;
+            gameOverImg.height = canvas.height;
+            gameOverImg.classList.remove('d-none');
+            gameOver.classList.remove('d-none');
+        }
+        if (state === "lost") {
+            youLostImg.width = canvas.width;
+            youLostImg.height = canvas.height;
+            youLostImg.classList.remove('d-none');
+            gameOver.classList.remove('d-none');
+        }
     }
 
     checkThrowObjects() {

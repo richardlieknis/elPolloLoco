@@ -38,7 +38,6 @@ class MovableObject {
 
     playAudioIfNearby(character) {
         if (this.isWithinAudioRadius(character)) {
-
             this.audio.volume = 0.2;
             this.audio.play();
         }

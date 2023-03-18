@@ -10,11 +10,23 @@ function init() {
     showStartOverlay();
 }
 
+function gameLoop() {
+    if (GAME_RUNNING) {
+        let currentTime = performance.now();
+        let deltaTime = (currentTime - lastTime) / 20;
+        clearCanvas();
+        world.update(deltaTime, GAME_RUNNING);
+        lastTime = currentTime;
+        changeSoundForNewBottles();
+    }
+    requestAnimationFrame(gameLoop);
+}
+
 function startGame() {
     GAME_RUNNING = true;
     document.getElementById("startOverlay").classList.add('d-none');
     document.getElementById("volumeBtn").classList.remove('d-none');
-    world = new World(keyboard, GAME_RUNNING);
+    world = new World(keyboard);
     world.draw();
     generateCollectables();
     generateChickens();
@@ -25,6 +37,8 @@ function restartGame() {
     GAME_RUNNING = true;
     document.getElementById("restartBtn").classList.add("d-none");
     document.getElementById("gameoverOverlay").classList.add("d-none");
+    document.getElementById("youLostImg").classList.add("d-none");
+    document.getElementById("gameOverImg").classList.add("d-none");
     document.getElementById("darkOverlay").classList.add("d-none");
     world.gameWonSound.pause();
     world = new World(keyboard);
@@ -54,7 +68,6 @@ function changeSound() {
         savedSoundOpt = true;
         volumeBtn.src = "img/10_overlay_icons/volumeBtn.png";
     }
-    console.log(soundTrigger);
 }
 
 function loadCurrentSoundOption() {
@@ -109,18 +122,6 @@ function changeSoundForNewBottles() {
     if (savedSoundOpt === false) {
         setAllBottleSounds(true);
     }
-}
-
-function gameLoop() {
-    if (GAME_RUNNING) {
-        let currentTime = performance.now();
-        let deltaTime = (currentTime - lastTime) / 20;
-        clearCanvas();
-        world.update(deltaTime, GAME_RUNNING);
-        lastTime = currentTime;
-        changeSoundForNewBottles();
-    }
-    requestAnimationFrame(gameLoop);
 }
 
 function showControlsOverlay() {
