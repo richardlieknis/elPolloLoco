@@ -93,6 +93,7 @@ class Character extends MovableObject {
             this.addControls(keyboard, deltaTime);
         }
         if (this.isOnGround()) {
+            this.acceleration = 2.5;
             this.jumping = false;
             this.hasPlayed = false;
             this.currentImageJ = 0;
@@ -222,6 +223,7 @@ class Character extends MovableObject {
 
     jumpOnChicken(chicken) {
         if (this.checkCollision(chicken) && this.jumping && this.speedY < 0 && !this.pepeDead()) {
+            this.acceleration = 1.5;
             chicken.clearAllIntervals();
             chicken.img.src = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
             chicken.deadSound.play();

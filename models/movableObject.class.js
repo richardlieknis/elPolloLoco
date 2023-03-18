@@ -17,7 +17,6 @@ class MovableObject {
     currentImageIL = 0;
     flipImage = false;
     jumping = false;
-    GAME_RUNNING = false;
     offsetY = 0;
     energy = 100;
     intervalId;
@@ -129,16 +128,16 @@ class MovableObject {
     }
 
     isOnGround() {
-        return (this.speedY <= -30)
+        //console.log(this.speedY);
+        return (this.speedY <= -29)
     }
 
     moveLeft(speed) {
-        console.log(world.char.x);
         if (this instanceof Chicken && world.char.x != 1) {
             this.x -= speed;
         }
 
-        if (this instanceof Character) {
+        if (this instanceof Character || this instanceof Boss) {
             this.x -= speed
         }
     }

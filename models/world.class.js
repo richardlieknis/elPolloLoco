@@ -51,8 +51,6 @@ class World {
         this.end = canvas.width * 4;
         this.world = this;
 
-        this.GAME_RUNNING = GAME_RUNNING;
-
         this.ambientSound = new Audio("audio/desert.mp3");
         this.ambientSound.play();
         this.ambientSound.volume = 0.3;
@@ -61,10 +59,10 @@ class World {
 
         this.gameWonSound = new Audio("audio/win.mp3");
         this.gameWonSound.volume = 0.1;
+        this.gameLooseSound = new Audio("audio/lose.mp3");
+        this.gameLooseSound.volume = 0.1;
 
         this.gameover = false;
-        this.gameoverTimeout;
-
     }
 
     draw() {
@@ -102,8 +100,7 @@ class World {
         }
     }
 
-    update(deltaTime, GAME_RUNNING) {
-        console.log(GAME_RUNNING);
+    update(deltaTime) {
         this.checkIfBossIsDead();
         this.draw();
         this.drawStatus();
@@ -116,7 +113,7 @@ class World {
             obj.update(deltaTime);
         });
         this.enemies.forEach(obj => {
-            obj.update(deltaTime, GAME_RUNNING);
+            obj.update(deltaTime);
         });
         this.statusObjects.forEach(obj => {
             obj.update(deltaTime);
@@ -143,15 +140,17 @@ class World {
         let gameOverImg = document.getElementById("gameOverImg");
         let restartBtn = document.getElementById("restartBtn");
 
-        this.gameoverTimeout = setTimeout(() => {
+        setTimeout(() => {
             GAME_RUNNING = false;
             this.char.clearAllIntervals();
             this.char.walkSound.pause();
-            restartBtn.classList.remove('d-none');
             gameOverImg.width = canvas.width;
             gameOverImg.height = canvas.height;
             gameOver.classList.remove('d-none');
-        }, 2500);
+            setTimeout(() => {
+                restartBtn.classList.remove('d-none');
+            }, 2500)
+        }, 2000);
     }
 
     checkThrowObjects() {

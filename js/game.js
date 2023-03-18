@@ -2,6 +2,7 @@ let world;
 let keyboard = new Keyboard();
 let lastTime = performance.now();
 let mouseTrigger = false;
+let soundTrigger = false;
 let GAME_RUNNING = false;
 
 function init() {
@@ -20,13 +21,70 @@ function startGame() {
 
 function restartGame() {
     GAME_RUNNING = true;
+    document.getElementById("restartBtn").classList.add("d-none");
     document.getElementById("gameoverOverlay").classList.add("d-none");
     document.getElementById("darkOverlay").classList.add("d-none");
     world.gameWonSound.pause();
     world = new World(keyboard);
-    world.enemies = [];
     generateCollectables();
     generateChickens();
+}
+
+function changeSound() {
+    let volumeBtn = document.getElementById("volumeBtn");
+    if (!soundTrigger) {
+        setAllSounds(true);
+        setAllEnemySounds(true);
+        setAllCollectSounds(true);
+        setAllTumbleweedSounds(true);
+        setAllBottleSounds(true);
+        soundTrigger = true;
+        volumeBtn.src = "img/10_overlay_icons/muteBtn.png";
+    } else if (soundTrigger) {
+        setAllSounds(false);
+        setAllEnemySounds(false);
+        setAllCollectSounds(false);
+        setAllTumbleweedSounds(false);
+        setAllBottleSounds(false);
+        soundTrigger = false;
+        volumeBtn.src = "img/10_overlay_icons/volumeBtn.png";
+    }
+}
+
+function setAllSounds(boolean) {
+    world.ambientSound.muted = boolean;
+    world.gameWonSound.muted = boolean;
+    world.gameLooseSound.muted = boolean;
+    world.char.walkSound.muted = boolean;
+    world.char.jumpSound.muted = boolean;
+    world.char.hurtSound.muted = boolean;
+    world.char.hurtSound2.muted = boolean;
+    world.char.deadSound.muted = boolean;
+    world.boss.bossMusic.muted = boolean;
+}
+
+function setAllEnemySounds(boolean) {
+    world.enemies.forEach(element => {
+        element.deadSound.muted = boolean;
+    });
+}
+
+function setAllCollectSounds(boolean) {
+    world.collectableObjects.forEach(element => {
+        element.collectSound.muted = boolean;
+    })
+}
+
+function setAllTumbleweedSounds(boolean) {
+    world.tumbleweeds.forEach(element => {
+        element.audio.muted = boolean;
+    })
+}
+
+function setAllBottleSounds(boolean) {
+    world.bottles.forEach(element => {
+        element.breakSound.muted = boolean;
+    })
 }
 
 function gameLoop() {
