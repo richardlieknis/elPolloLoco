@@ -141,11 +141,9 @@ canvas {
     canvas {
         width: 100%;
     }
-    #startImg {
-        width: 100%;
-        height: auto;
-    }
-    #gameOverImg {
+    #startImg,
+    #gameOverImg,
+    #youLostImg {
         width: 100%;
         height: auto;
     }
@@ -170,7 +168,8 @@ canvas {
         display: none;
     }
     #startImg,
-    #gameOverImg {
+    #gameOverImg,
+    #youLostImg {
         height: 100vh;
     }
     #mobileControls {
