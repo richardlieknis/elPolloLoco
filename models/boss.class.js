@@ -70,19 +70,11 @@ class Boss extends MovableObject {
         this.bossMusic.volume = 0.05;
 
     }
-
-    hasXChanged() {
-        if (this.prevX === null) {
-            this.prevX = this.x;
-            return false;
-        } else if (this.prevX !== this.x) {
-            this.prevX = this.x;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    
+    /**
+     * update function for all animations in canvas
+     * @param {number} deltaTime performance time for different devices
+     */
     update(deltaTime) {
         if (world.char.x > 4800 || this.trigger) {
             this.trigger = true;
@@ -98,14 +90,33 @@ class Boss extends MovableObject {
             this.attackIfNear();
             this.deadAnimation();
             document.getElementById("darkOverlay").classList.remove('d-none');
-
+            
             if (this.globalAlert) {
                 this.randomSlideToChar();
             }
-        }
-
+        } 
     }
 
+    animation() {
+        this.startInterval(this.IMAGES_WALK);
+    }
+    
+    /**
+     * check for position of boss and char
+     * @returns {boolean} returns true if boss and character are on same position
+     */
+    hasXChanged() {
+        if (this.prevX === null) {
+            this.prevX = this.x;
+            return false;
+        } else if (this.prevX !== this.x) {
+            this.prevX = this.x;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     checkIfMoves() {
         if (this.isMoving) {
             this.isAttacking = false;
@@ -192,8 +203,7 @@ class Boss extends MovableObject {
             if (positionDif < -80 && !this.alerted) {
                 this.moveRight(this.speed * deltaTime);
                 this.isMoving = true;
-                this.walkingAnimation(); // NOTE Als letztes isMoving eingefügt. Noch keine Stelle für isMoving = false! Sollte fürs WALK dienen
-                //NOTE Idee - HilfsFunktionen für Position Difference machen!
+                this.walkingAnimation();
             } else this.isMoving = false;
             this.flipImage = true;
         }
@@ -202,15 +212,4 @@ class Boss extends MovableObject {
     bossDead() {
         return this.energy <= 0;
     }
-
-    positionDiference(a, b) {
-        let positionDif;
-        let pos1 = a;
-        let pos2 = b;
-    }
-
-    animation() {
-        this.startInterval(this.IMAGES_WALK);
-    }
-
 }

@@ -15,7 +15,7 @@ class Chicken extends MovableObject {
         this.speed = speed;
         this.dead = false;
 
-        this.testInv;
+        this.walkInt;
 
         this.IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
         this.deadSound = new Audio('audio/chickenHurt2.mp3');
@@ -26,11 +26,10 @@ class Chicken extends MovableObject {
 
     update(deltaTime) {
         this.moveLeft(this.speed * deltaTime);
-        //this.moveUpToChar(deltaTime);
     }
 
     animation() {
-        this.testInv = setInterval(() => {
+        this.walkInt = setInterval(() => {
             let path = this.IMAGES_WALK[this.currentImage];
             this.img = this.imageCache[path];
             this.currentImage++;
@@ -43,7 +42,7 @@ class Chicken extends MovableObject {
 
 
     clearAllIntervals() {
-        let allIntervals = [this.testInv];
+        let allIntervals = [this.walkInt];
         allIntervals.forEach(clearInterval);
     }
 

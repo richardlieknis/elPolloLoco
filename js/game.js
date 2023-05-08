@@ -48,6 +48,9 @@ function restartGame() {
     loadCurrentSoundOption();
 }
 
+/**
+ * Mute or unmute all sound ingame with volume button in canvas
+ */
 function changeSound() {
     let volumeBtn = document.getElementById("volumeBtn");
     if (!soundTrigger) {
@@ -71,6 +74,9 @@ function changeSound() {
     }
 }
 
+/**
+ * load actual sound option (mute/unmute) on restart
+ */
 function loadCurrentSoundOption() {
     if (savedSoundOpt === true) {
         soundTrigger = true;
@@ -80,6 +86,9 @@ function loadCurrentSoundOption() {
     changeSound();
 }
 
+/** mute or unmute all sounds           
+ * @param {boolean} boolean Set true or false for all sounds in game
+ */
 function setAllSounds(boolean) {
     world.ambientSound.muted = boolean;
     world.gameWonSound.muted = boolean;
@@ -92,18 +101,27 @@ function setAllSounds(boolean) {
     world.boss.bossMusic.muted = boolean;
 }
 
+/** iterate all chicken enemies and mute or unmute all sounds   
+ * @param {boolean} boolean set true or false for all enemy sounds 
+ */
 function setAllEnemySounds(boolean) {
     world.enemies.forEach(element => {
         element.deadSound.muted = boolean;
     });
 }
 
+/** iterate all collectables and mute or unmute all sounds   
+ * @param {boolean} boolean set true or false for all collectables sounds 
+ */
 function setAllCollectSounds(boolean) {
     world.collectableObjects.forEach(element => {
         element.collectSound.muted = boolean;
     })
 }
 
+/** iterate all tumbleweeds and mute or unmute all sounds   
+ * @param {boolean} boolean set true or false for all tumbleweed sounds 
+ */
 function setAllTumbleweedSounds(boolean) {
     world.tumbleweeds.forEach(element => {
         element.audio.muted = boolean;
@@ -139,6 +157,10 @@ function setFullscreen() {
     }
 }
 
+/**
+ * get canvas and set fullscreen
+ * @param {HTMLElement} docElm canvas container HTML Element
+ */
 function openFullscreen(docElm) {
     document.getElementById('canvas').classList.add('style-fullscreen');
     document.getElementById('startImg').style.width = "100%";

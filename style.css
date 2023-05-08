@@ -1,285 +1,297 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
 }
 
 body {
-    background-color: #111;
-    color: aliceblue;
-    font-family: sans-serif;
-    background-image: url('img/desert-bg.png');
-    background-position: center;
-    background-size: cover;
-    object-fit: fill;
+ background-color: #111;
+ color: aliceblue;
+ font-family: sans-serif;
+ background-image: url("img/desert-bg.png");
+ background-position: center;
+ background-size: cover;
+ object-fit: fill;
 }
 
 .d-none {
-    display: none;
+ display: none;
 }
 
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    gap: 0px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+ height: 100vh;
+ gap: 0px;
 }
 
 canvas {
-    border-radius: 3%;
-    cursor: cell;
+ border-radius: 3%;
+ cursor: cell;
+}
+
+#startImg,
+#gameOverImg,
+#youLostImg {
+ width: 100%;
+ height: auto;
 }
 
 #optionsOverlay {
-    position: absolute;
-    top: 0;
-    padding: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: end;
-    cursor: pointer;
+ position: absolute;
+ top: 0;
+ padding: 10px;
+ width: 100%;
+ display: flex;
+ justify-content: end;
+ cursor: pointer;
 }
 
 .closeBtn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 20px;
-    cursor: pointer;
+ position: absolute;
+ top: 0;
+ right: 0;
+ padding: 20px;
+ cursor: pointer;
 }
 
 #flipDisplayOverlay {
-    position: absolute;
-    background-color: #111;
-    width: 100%;
-    height: 100vh;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 200;
+ position: absolute;
+ background-color: #111;
+ width: 100%;
+ height: 100vh;
+ display: none;
+ justify-content: center;
+ align-items: center;
+ z-index: 200;
 }
 
 #flipDisplayOverlay h2 {
-    animation: flip 3s infinite;
+ animation: flip 3s infinite;
 }
 
 @keyframes flip {
-    0% {
-        transform: rotate(0deg);
-    }
-    75% {
-        transform: rotate(90deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
+ 0% {
+  transform: rotate(0deg);
+ }
+ 75% {
+  transform: rotate(90deg);
+ }
+ 100% {
+  transform: rotate(0deg);
+ }
 }
 
 #showControlsOverlay {
-    background-color: #FEAF3B;
-    background-image: url(img/background.png);
-    background-size: cover;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 3%;
-    text-align: center;
-    padding-top: 20px;
-    font-family: 'boogaloo';
-    font-size: 28px;
-    animation: fadeIn 1s initial;
-    z-index: 150;
+ background-color: #feaf3b;
+ background-image: url(img/background.png);
+ background-size: cover;
+ position: absolute;
+ top: 0;
+ width: 100%;
+ height: 100%;
+ border-radius: 3%;
+ text-align: center;
+ padding-top: 20px;
+ font-family: "boogaloo";
+ font-size: 28px;
+ animation: fadeIn 1s initial;
+ z-index: 150;
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+ 0% {
+  opacity: 0;
+ }
+ 100% {
+  opacity: 1;
+ }
 }
 
 .showControlsContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: space-evenly;
+ height: 100%;
 }
 
 #showControlsOverlay h2 {
-    color: #53401e;
+ color: #53401e;
 }
 
 .controls div {
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 20px;
+ color: #fff;
+ display: flex;
+ align-items: center;
+ gap: 20px;
 }
 
 .story {
-    color: #fff;
-    background-color: #53401E99;
-    padding: 10px;
-    border-radius: 12px;
-    width: 50%;
-    text-align: justify;
-    word-spacing: 2px;
+ color: #fff;
+ background-color: #53401e99;
+ padding: 10px;
+ border-radius: 12px;
+ width: 50%;
+ text-align: justify;
+ word-spacing: 2px;
 }
 
 @media only screen and (max-width: 700px) {
-    #flipDisplayOverlay {
-        display: flex;
-    }
+ #flipDisplayOverlay {
+  display: flex;
+ }
 }
 
 @media only screen and (max-width: 1129px) {
-    canvas {
-        width: 100%;
-    }
-    #startImg,
-    #gameOverImg,
-    #youLostImg {
-        width: 100%;
-        height: auto;
-    }
-    #startBtn,
-    #restartBtn {
-        width: 20% !important;
-        height: auto !important;
-    }
-    #showControlsOverlay {
-        font-size: 16px;
-    }
+ canvas {
+  width: 100%;
+ }
+ #startImg,
+ #gameOverImg,
+ #youLostImg {
+  width: 100%;
+  height: auto;
+ }
+ #startBtn,
+ #restartBtn {
+  width: 20% !important;
+  height: auto !important;
+ }
+ #showControlsOverlay {
+  font-size: 16px;
+ }
 }
 
 @media only screen and (max-height: 635px) {
-    body {
-        overflow-y: hidden;
-    }
-    canvas {
-        height: 100vh;
-    }
-    main h1 {
-        display: none;
-    }
-    #startImg,
-    #gameOverImg,
-    #youLostImg {
-        height: 100vh;
-    }
-    #mobileControls {
-        display: flex !important;
-    }
-    #showControlsOverlay {
-        font-size: 18px;
-    }
+ body {
+  overflow-y: hidden;
+ }
+ canvas {
+  height: 100vh;
+ }
+ main h1 {
+  display: none;
+ }
+ #startImg,
+ #gameOverImg,
+ #youLostImg {
+  height: 100vh;
+ }
+ #mobileControls {
+  display: flex !important;
+ }
+ #showControlsOverlay {
+  font-size: 18px;
+ }
 }
 
 .canvasContainer {
-    position: relative;
+ position: relative;
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+ 0% {
+  opacity: 0;
+ }
+ 100% {
+  opacity: 1;
+ }
 }
 
 #mobileControls {
-    position: absolute;
-    bottom: 0;
-    display: none;
-    justify-content: space-between;
-    width: 100%;
-    padding: 2%;
+ position: absolute;
+ bottom: 0;
+ display: none;
+ justify-content: space-between;
+ width: 100%;
+ padding: 2%;
 }
 
 #darkOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 99.5%;
-    background-color: rgba(0, 0, 0, 0.15);
-    border-radius: 3%;
-    cursor: cell;
-    animation: fadeIn 3s ease-in-out;
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 99.5%;
+ background-color: rgba(0, 0, 0, 0.15);
+ border-radius: 3%;
+ cursor: cell;
+ animation: fadeIn 3s ease-in-out;
 }
 
 #gameoverOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 99.5%;
-    border-radius: 3%;
-    animation: fadeIn 2s ease-in-out;
+ position: absolute;
+ top: 0;
+ left: 0;
+ background-repeat: no-repeat;
+ width: 100%;
+ height: 99.5%;
+ border-radius: 3%;
+ animation: fadeIn 2s ease-in-out;
 }
 
 #restartBtn {
-    position: absolute;
-    width: 250px;
-    height: 80px;
-    bottom: 20px;
-    left: calc(50% - 250px / 2);
-    cursor: pointer;
-    z-index: 100;
-    user-select: none;
+ position: absolute;
+ width: 250px;
+ height: 80px;
+ bottom: 20px;
+ left: calc(50% - 250px / 2);
+ cursor: pointer;
+ z-index: 100;
+ user-select: none;
+}
+
+#restartBtn:hover,
+#startBtn:hover {
+ filter: brightness(1.1);
 }
 
 #startOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    user-select: none;
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ user-select: none;
 }
 
 #startBtn {
-    position: absolute;
-    width: 250px;
-    height: 80px;
-    top: 20px;
-    left: calc(50% - 250px / 2);
-    cursor: pointer;
-    z-index: 140;
+ position: absolute;
+ width: 250px;
+ height: 80px;
+ top: 20px;
+ left: calc(50% - 250px / 2);
+ cursor: pointer;
+ z-index: 140;
 }
 
 .style-fullscreen {
-    width: 100%;
-    max-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+ width: 100%;
+ max-height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
 }
 
 .imgOverlay {
-    border-radius: 3%;
+ border-radius: 3%;
 }
 
 h1 {
-    font-family: 'boots';
-    font-size: 48px;
-    color: #53401e;
-    user-select: none;
+ font-family: "boots";
+ font-size: 48px;
+ color: #53401e;
+ user-select: none;
 }
 
 @font-face {
-    font-family: 'boogaloo';
-    src: url(fonts/Boogaloo.ttf);
+ font-family: "boogaloo";
+ src: url(fonts/Boogaloo.ttf);
 }
 
 @font-face {
-    font-family: 'boots';
-    src: url(fonts/boots.otf);
+ font-family: "boots";
+ src: url(fonts/boots.otf);
 }
